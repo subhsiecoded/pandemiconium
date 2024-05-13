@@ -1,0 +1,21 @@
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+  }
+  
+  /* Handle portion of the scrollbar */
+  ::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar handle */
+    border-radius: 4px; /* Roundness of the scrollbar handle */
+  }
+  
+  /* Track portion of the scrollbar */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+  }
+  
+  /* Corner of the scrollbar */
+  ::-webkit-scrollbar-corner {
+    background: transparent; /* Background color of the scrollbar corner */
+  }
+  

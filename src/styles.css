@@ -1,0 +1,382 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Import Google Font */
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+  
+  /* Body styles */
+  body {
+    background-color: white;
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat; /* Light gray background */
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  /* Main app layout */
+  .app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  /*HomePage styles*/
+  /* Add your styles here */
+  .navbar {
+    position: sticky;
+    background-color: #333;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+  }
+  
+.navbar-nav .nav-link {
+  color: #fff; /* Change navbar link color */
+}
+
+.aboutsect {
+  padding: 40px 0;
+}
+
+.aboutsect h2 {
+  color: #333;
+  text-align: center;
+}
+
+.developer-tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow */
+}
+
+.developer-tile:hover {
+  transform: translateY(-5px); /* Add translateY transformation on hover */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Change box shadow on hover */
+}
+
+.developer-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 75%;
+  margin: auto; /* Center the image horizontally */
+}
+
+.developer-name {
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.hometitle {
+  text-align: center; /* Center align text */
+  font-size: 2.5rem; /* Change home title font size */
+  color: #fff; /* Change home title color */
+  padding: 20px 0; /* Add padding top and bottom */
+  background-color: #8a49e4bd; /* Purple background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  animation: fadeIn 1s ease forwards; /* Fade-in animation */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+  /* Header styles */
+  .head {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #fff;
+    padding: 20px 0;
+    background-color: #8a49e4bd; /* Purple background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    animation: fadeIn 1s ease forwards; /* Fade-in animation */
+  }
+
+  .darkmodebutton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000; /* Set a high z-index value */
+  }
+  /* Animation keyframes */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Smooth transition for header background */
+  .head {
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Header hover effect */
+  .head:hover {
+    background-color: #6f08ff; /* Darker purple on hover */
+  }
+  
+  
+  /* Article grid */
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns with equal width */
+    gap: 20px; /* Gap between grid items */
+  }
+  
+  /* Individual article */
+  .article {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+  }
+  
+  /* styles.css */
+/* Fade Animation */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+.article-title {
+  color: #222; /* Adjust the text color for light mode */
+}
+
+.article-description {
+  color: #666; /* Adjust the text color for light mode */
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+/* Handle portion of the scrollbar */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar handle */
+  border-radius: 4px; /* Roundness of the scrollbar handle */
+}
+
+/* Track portion of the scrollbar */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the scrollbar track */
+}
+
+/* Corner of the scrollbar */
+::-webkit-scrollbar-corner {
+  background: transparent; /* Background color of the scrollbar corner */
+}
+  .article img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .article h2 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+  
+  .article p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .article a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .article button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+  }
+  
+  .article button:hover {
+    background-color: #0056b3;
+  }
+  
+  .loadButton {
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #000000bd;
+    font-weight: bold;
+    align-self: center;
+    display: inline-block;
+    width: auto;
+    margin: 0 auto;
+    max-width: 200px;
+    cursor: pointer;
+    position: relative;
+    bottom: 10px;
+    left: 100%;
+    overflow: hidden;
+    background-color: transparent;
+    border: 2px solid #6f08ffbd;
+  }
+  
+  .loadButton::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background-color: #6f08ffbd;
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+  
+  .loadButton:hover {
+    color: #fff;
+    background-color: #6f08ffbd;
+  }
+  
+  /* Slide Animation */
+.slide-enter {
+  transform: translateX(100%);
+}
+
+.slide-enter-active {
+  transform: translateX(0);
+  transition: transform 300ms;
+}
+
+.slide-exit {
+  transform: translateX(0);
+}
+
+.slide-exit-active {
+  transform: translateX(100%);
+  transition: transform 300ms;
+}
+  
+  /* Starred Articles */
+  .starred-articles {
+    margin-top: 40px;
+    text-align: left;
+    background-color: rgba(245, 245, 245, 0.9); /* Add transparency */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: calc(100% - 40px);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+    backdrop-filter: blur(5px); /* Add blur effect */
+  }
+
+.starred-articles.expanded {
+  right: 20px;
+}
+
+.sidebar-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 40px;
+  background-color: #fff;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-toggle span {
+  font-size: 1.2rem;
+}
+
+.starred-articles h2 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.starred-articles .article {
+  border: none;
+  padding: 10px 0;
+  background-color: transparent;
+}
+
+.starred-articles .article h2 {
+  font-size: 1.1rem;
+}
+
+.starred-articles .grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+  
+  /* Responsive layout */
+  @media (max-width: 768px) {
+    .article-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  
+    .article {
+      padding: 15px;
+    }
+  
+    .article h2 {
+      font-size: 1.1rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .article-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  
+    .article {
+      padding: 10px;
+    }
+  
+    .article h2 {
+      font-size: 1rem;
+    }
+  }
+  
