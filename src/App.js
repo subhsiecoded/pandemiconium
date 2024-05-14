@@ -15,6 +15,7 @@ import { UserIdProvider } from "./components/UserIdContext";
 import logoWatermark from "./components/img/logo.png";
 import moonIcon from "./components/img/moon.png";
 import sunIcon from "./components/img/sun.png";
+import CustomCursor from './components/CustomCursor';
 import MapLoadScript from "./components/MapLoadScript";
 import MapComponent from "./components/MapComponent";
 
@@ -171,6 +172,7 @@ const App = () => {
   return (
     <UserIdProvider>
       <GlobalStyle darkMode={darkMode} />
+      <CustomCursor />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
