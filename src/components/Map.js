@@ -65,7 +65,7 @@ const Map = () => {
   const fetchNearbyPlaces = async (latitude, longitude) => {
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=1500&type=${selectedType}&key=AIzaSyAXA2bvaKesu06Ueb2D_SwY4visrzb27q4`
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=1500&type=${selectedType}&key=GOOGLE_MAPS_API`
       );
 
       if (!response.ok) {
@@ -96,7 +96,7 @@ const Map = () => {
   const handleSearchSubmit = async () => {
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchQuery}&type=${selectedType}&key=AIzaSyAXA2bvaKesu06Ueb2D_SwY4visrzb27q4`
+        `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchQuery}&type=${selectedType}&key=GOOGLE_MAPS_API`
       );
 
       if (!response.ok) {
