@@ -16,6 +16,7 @@ import logo from "./img/logonav.png";
 import CurrentDateTime from "./CurrentDateTime";
 import Customheaderfont from "./fonts/AGoblinAppears-o2aV.ttf";
 import Custombodyfont from "./fonts/Kreasi-YqEjO.otf";
+import HomePageHeader from "./headers/HomePageHeader";
 
 const Section = styled.section`
   margin: 40px;
@@ -360,7 +361,7 @@ const HomePage = () => {
               </SectionContent>
               <SectionImage src={historyImage} alt="History" />
             </Section>
-
+            <HomePageHeader darkMode={darkMode} />
             <Section>
               <SectionImage src={notesImage} alt="Notes" />
               <SectionContent style={{ textAlign: "left" }}>
@@ -500,7 +501,7 @@ const HomePage = () => {
               <DeveloperContainer>
                 <DeveloperTile>
                   <Link
-                    to="https://www.linkedin.com/in/johndoe"
+                    to="https://www.linkedin.com/in/subhsie"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -510,43 +511,25 @@ const HomePage = () => {
                   </Link>
                 </DeveloperTile>
                 <DeveloperTile>
-                  <Link
-                    to="https://www.linkedin.com/in/janesmith"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
                     <DeveloperImage src={dev2} alt="Developer 2" />
                     <DeveloperName>Ranganath V.</DeveloperName>
                     <DeveloperRole>
                       Backend Designer and API developer.
                     </DeveloperRole>
-                  </Link>
                 </DeveloperTile>
                 <DeveloperTile>
-                  <Link
-                    to="https://www.linkedin.com/in/bobjohnson"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
                     <DeveloperImage src={dev3} alt="Developer 3" />
                     <DeveloperName>Muhsin Bashir</DeveloperName>
                     <DeveloperRole>
                       Head of Artificial Intelligence and Machine learning.
                     </DeveloperRole>
-                  </Link>
                 </DeveloperTile>
                 <DeveloperTile>
-                  <Link
-                    to="https://www.linkedin.com/in/alicewilliams"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
                     <DeveloperImage src={dev4} alt="Developer 4" />
                     <DeveloperName>Bhumika Raj</DeveloperName>
                     <DeveloperRole>
                       Head of Research and Analysis.
                     </DeveloperRole>
-                  </Link>
                 </DeveloperTile>
               </DeveloperContainer>
             </AboutSection>

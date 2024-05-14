@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Customheaderfont from "../fonts/AGoblinAppears-o2aV.ttf";
 
-const NotesHeaderContainer = styled.h2`
+const HomePageHeaderContainer = styled.h2`
   @font-face {
     font-family: "CustomHeaderFont";
     src: url(${Customheaderfont}) format("woff2");
@@ -14,15 +14,14 @@ const NotesHeaderContainer = styled.h2`
   font-weight: bold;
   cursor: pointer;
   font-family: "CustomHeaderFont", cursive;
-  font-size: 38px; /* Adjust font size */
 `;
 
-function Header({ darkMode }) {
+const HomePageHeader = ({ darkMode }) => {
   return (
-    <NotesHeaderContainer darkMode={darkMode}>
-      <h1 className="notes__title mb-4">Notes</h1>
-    </NotesHeaderContainer>
+    <HomePageHeaderContainer darkMode={darkMode}>
+      <h2>Services Pandemiconium provides.</h2>
+    </HomePageHeaderContainer>
   );
-}
+};
 
-export default Header;
+export default HomePageHeader;

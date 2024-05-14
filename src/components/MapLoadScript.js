@@ -3,7 +3,7 @@ import { useJsApiLoader } from '@react-google-maps/api';
 const LoadScript = ({ children }) => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'GOOGLE_MAPS_API', // Replace with your actual API key
+    googleMapsApiKey: 'AIzaSyAXA2bvaKesu06Ueb2D_SwY4visrzb27q4', // Replace with your actual API key
     libraries: ['places'],
   });
 
