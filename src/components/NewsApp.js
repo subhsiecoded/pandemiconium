@@ -8,6 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles.css";
+import logoWatermark from "./img/newsbackground.png";
 import logo from "./img/logonav.png";
 import styled from "styled-components";
 import Customheaderfont from "./fonts/AGoblinAppears-o2aV.ttf";
@@ -26,6 +27,28 @@ const NewsHeaderContainer = styled.h2`
   cursor: pointer;
   font-family: "CustomHeaderFont", cursive;
   font-size: 38px; /* Adjust font size */
+`;
+
+const Container = styled.div`
+  background-image: url(${logoWatermark}); /* Static image */
+  background-repeat: repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 50px;
+  /* Animation for the background */
+  animation: animateBackground 10s linear infinite; /* Change the time as needed */
+
+  @keyframes animateBackground {
+    from {
+      background-position: 0 0; /* Starting position */
+    }
+    to {
+      background-position: 100% 100%; /* Ending position */
+    }
+  }
 `;
 // Define the NewsApp component
 const NewsApp = ({ onLogout, darkMode }) => {
@@ -269,6 +292,7 @@ const NewsApp = ({ onLogout, darkMode }) => {
           <CurrentDateTime />
         </div>
       </nav>
+      <Container>
       <NewsHeaderContainer darkMode={darkMode}>
         <h1>Pandemiconium News Portal</h1>
       </NewsHeaderContainer>
@@ -327,6 +351,7 @@ const NewsApp = ({ onLogout, darkMode }) => {
           />
         )}
       </div>
+      </Container>
     </div>
   );
 };
