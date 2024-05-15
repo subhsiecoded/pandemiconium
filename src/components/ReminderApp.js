@@ -43,7 +43,40 @@ const FormContainer = styled.div`
   color: ${(props) => (props.darkMode ? "#fff" : "#222")};
   /* Text color */
 `;
+const StyledNav = styled.nav`
+  background-color: #343a40; /* Dark background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+  padding: 0.5rem 1rem; /* Add some padding */
 
+  .navbar-brand {
+    color: #fff; /* Set the logo text color to white */
+  }
+
+  .nav-link {
+    color: #ccc; /* Set the default link color to light gray */
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 0.5rem 1rem; /* Add some padding to the links */
+    border-radius: 0.25rem; /* Add rounded corners */
+
+    &:hover {
+      background-color: #fff; /* Change the background color to white on hover */
+      color: #343a40; /* Change the text color to dark on hover */
+    }
+
+    &.active {
+      background-color: #007bff; /* Change the background color for the active link */
+      color: #fff; /* Change the text color for the active link */
+    }
+  }
+
+  .navbar-toggler {
+    border-color: #ccc; /* Change the border color of the toggler */
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* Change the toggler icon to a custom SVG */
+  }
+`;
 const RemindersContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -133,7 +166,7 @@ function ReminderApp({ onLogout, darkMode }) {
 
   return (
     <>
-      <nav
+      <StyledNav
         className="navbar navbar-expand-lg bg-body-tertiary"
         data-bs-theme="dark"
       >
@@ -181,7 +214,7 @@ function ReminderApp({ onLogout, darkMode }) {
             </ul>
           </div>
         </div>
-      </nav>
+      </StyledNav>
       <Container darkMode={darkMode}>
         <FormContainer darkMode={darkMode}>
           <h2>Create Reminder</h2>

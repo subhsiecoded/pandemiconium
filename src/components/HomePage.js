@@ -114,6 +114,40 @@ const DeveloperName = styled.h3`
   font-weight: bold;
   font-family: "CustomBodyFont", cursive;
 `;
+const StyledNav = styled.nav`
+  background-color: #343a40; /* Dark background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+  padding: 0.5rem 1rem; /* Add some padding */
+
+  .navbar-brand {
+    color: #fff; /* Set the logo text color to white */
+  }
+
+  .nav-link {
+    color: #ccc; /* Set the default link color to light gray */
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 0.5rem 1rem; /* Add some padding to the links */
+    border-radius: 0.25rem; /* Add rounded corners */
+
+    &:hover {
+      background-color: #fff; /* Change the background color to white on hover */
+      color: #343a40; /* Change the text color to dark on hover */
+    }
+
+    &.active {
+      background-color: #007bff; /* Change the background color for the active link */
+      color: #fff; /* Change the text color for the active link */
+    }
+  }
+
+  .navbar-toggler {
+    border-color: #ccc; /* Change the border color of the toggler */
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* Change the toggler icon to a custom SVG */
+  }
+`;
 
 const DeveloperRole = styled.p`
   margin-top: 14px;
@@ -187,7 +221,7 @@ const HomePage = () => {
     <>
       <div>
         <Container darkMode={darkMode}>
-          <nav className="navbar navbar-expand-lg" data-bs-theme="dark">
+          <StyledNav className="navbar navbar-expand-lg" data-bs-theme="dark">
             <div className="container-fluid d-flex justify-content-center">
               <button
                 className="navbar-toggler"
@@ -200,7 +234,6 @@ const HomePage = () => {
               >
                 <span className="navbar-toggler-icon"></span>
               </button>
-
               <img
                 src={logo}
                 alt="Logo"
@@ -238,7 +271,7 @@ const HomePage = () => {
               </div>
               <CurrentDateTime />
             </div>
-          </nav>
+          </StyledNav>
           <motion.div
             initial={{ x: "-100vw" }}
             animate={{ x: 0 }}
@@ -500,36 +533,28 @@ const HomePage = () => {
               <SectionHeading>About Us</SectionHeading>
               <DeveloperContainer>
                 <DeveloperTile>
-                  <Link
-                    to="https://www.linkedin.com/in/subhsie"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <DeveloperImage src={dev1} alt="Developer 1" />
-                    <DeveloperName>Subhasish Das</DeveloperName>
-                    <DeveloperRole>Front-end Developer.</DeveloperRole>
-                  </Link>
+                  <DeveloperImage src={dev1} alt="Developer 1" />
+                  <DeveloperName>Subhasish Das</DeveloperName>
+                  <DeveloperRole>Front-end Developer.</DeveloperRole>
                 </DeveloperTile>
                 <DeveloperTile>
-                    <DeveloperImage src={dev2} alt="Developer 2" />
-                    <DeveloperName>Ranganath V.</DeveloperName>
-                    <DeveloperRole>
-                      Backend Designer and API developer.
-                    </DeveloperRole>
+                  <DeveloperImage src={dev2} alt="Developer 2" />
+                  <DeveloperName>Ranganath V.</DeveloperName>
+                  <DeveloperRole>
+                    Backend Designer and API developer.
+                  </DeveloperRole>
                 </DeveloperTile>
                 <DeveloperTile>
-                    <DeveloperImage src={dev3} alt="Developer 3" />
-                    <DeveloperName>Muhsin Bashir</DeveloperName>
-                    <DeveloperRole>
-                      Head of Artificial Intelligence and Machine learning.
-                    </DeveloperRole>
+                  <DeveloperImage src={dev3} alt="Developer 3" />
+                  <DeveloperName>Muhsin Bashir</DeveloperName>
+                  <DeveloperRole>
+                    Head of Artificial Intelligence and Machine learning.
+                  </DeveloperRole>
                 </DeveloperTile>
                 <DeveloperTile>
-                    <DeveloperImage src={dev4} alt="Developer 4" />
-                    <DeveloperName>Bhumika Raj</DeveloperName>
-                    <DeveloperRole>
-                      Head of Research and Analysis.
-                    </DeveloperRole>
+                  <DeveloperImage src={dev4} alt="Developer 4" />
+                  <DeveloperName>Bhumika Raj</DeveloperName>
+                  <DeveloperRole>Head of Research and Analysis.</DeveloperRole>
                 </DeveloperTile>
               </DeveloperContainer>
             </AboutSection>
