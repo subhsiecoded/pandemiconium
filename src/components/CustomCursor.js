@@ -1,5 +1,4 @@
 // CustomCursor.js
-
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Cursor from "./img/cursor.png";
@@ -10,6 +9,10 @@ const CursorWrapper = styled.div`
   height: 32px;
   pointer-events: none;
   z-index: 9999;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const CustomCursor = () => {
@@ -22,8 +25,13 @@ const CustomCursor = () => {
 
     document.addEventListener('mousemove', handleMouseMove);
 
+    // Hide the system cursor
+    document.body.style.cursor = 'none';
+
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
+      // Reset the cursor style when the component unmounts
+      document.body.style.cursor = 'auto';
     };
   }, []);
 

@@ -60,9 +60,9 @@ const NewsApp = ({ onLogout, darkMode }) => {
   const [userId, setUserId] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [showStarredArticles, setShowStarredArticles] = useState(false);
-  const [covidCollapsed, setCovidCollapsed] = useState(true);
-  const [vaccineCollapsed, setVaccineCollapsed] = useState(true);
-  const [generalCollapsed, setGeneralCollapsed] = useState(true); // New state for general news
+  const [covidCollapsed, setCovidCollapsed] = useState(false);
+  const [vaccineCollapsed, setVaccineCollapsed] = useState(false);
+  const [generalCollapsed, setGeneralCollapsed] = useState(false); // New state for general news
   const apiKey = "7e37076f4c10468b8ba932870b434b0b";
   const covidApiUrl = `https://newsapi.org/v2/everything?q=covid&apiKey=${apiKey}&language=en`;
   const vaccineApiUrl = `https://newsapi.org/v2/everything?q=vaccine&apiKey=${apiKey}&language=en`;
