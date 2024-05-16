@@ -8,6 +8,7 @@ import logo from "./img/logonav.png";
 import { Link } from "react-router-dom";
 import moonIcon from "./img/moon.png";
 import sunIcon from "./img/sun.png";
+import CurrentDateTime from "./CurrentDateTime";
 
 const Container = styled.div`
   color: ${(props) => (props.darkMode ? "white" : "black")};
@@ -213,6 +214,7 @@ function ReminderApp({ onLogout, darkMode }) {
               </li>
             </ul>
           </div>
+          <CurrentDateTime />
         </div>
       </StyledNav>
       <Container darkMode={darkMode}>
