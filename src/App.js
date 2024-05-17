@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./components/HomePage";
 import Signup from "./components/Signup";
+import Pandemicinfo from "./components/PandemicInfo";
 import Map from "./components/Map";
 import Login from "./components/Login";
 import ForgotPassword from "./components/ForgotPassword";
@@ -182,6 +183,14 @@ const App = () => {
           element={
             <HomePageWrapper isLoggedIn={isLoggedIn}>
               <HomePage onLogout={handleLogout} />
+            </HomePageWrapper>
+          }
+        />
+        <Route
+          path="/pandemic"
+          element={
+            <HomePageWrapper isLoggedIn={isLoggedIn}>
+              <Pandemicinfo onLogout={handleLogout} darkMode={darkMode}/>{" "}
             </HomePageWrapper>
           }
         />

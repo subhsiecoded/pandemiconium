@@ -308,6 +308,11 @@ const NewsApp = ({ onLogout, darkMode }) => {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link className="nav-link" to="/pandemic">
+                  Info
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link" to="/notes">
                   Notes
                 </Link>
