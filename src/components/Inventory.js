@@ -58,7 +58,7 @@ const InventoryItemContainer = styled.div`
   border-radius: 15px;
   margin-bottom: 10px;
   border: 1.5px solid rgba(0, 0, 0, 0.326);
-  color: ${(props) => (props.darkMode ? 'white' : '#413e3e')};
+  color: ${(props) => (props.darkMode ? "white" : "#413e3e")};
   padding: 15px;
   min-height: 140px;
   display: flex;
@@ -593,6 +593,9 @@ function Inventory({ darkMode }) {
             ))}
           </div>
         )}
+        {searchQuery.trim() !== "" && searchResults.length === 0 && (
+          <p>No matching items or lists found</p>
+        )}
         <div
           className="inventory"
           style={{ display: "flex", flexWrap: "wrap" }}
@@ -632,7 +635,11 @@ function Inventory({ darkMode }) {
                   }}
                 >
                   {list.items.map((item) => (
-                    <InventoryItemContainer key={item.id} className="inventory-item" darkMode={darkMode}>
+                    <InventoryItemContainer
+                      key={item.id}
+                      className="inventory-item"
+                      darkMode={darkMode}
+                    >
                       <div>
                         <h3>{item.name}</h3>
                         <p>
