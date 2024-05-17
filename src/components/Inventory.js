@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import InventoryItem from "./InventoryItem";
+import SearchBox from "./SearchBox";
 import CreateInventoryItem from "./CreateInventoryItem";
 import CurrentDateTime from "./CurrentDateTime";
-import NoInventoryLists from './headers/NoInventoryLists';
+import NoInventoryLists from "./headers/NoInventoryLists";
 import { v4 as uuid } from "uuid";
 import "./css/Inventory.css";
 import logo from "./img/logonav.png";
@@ -36,7 +37,7 @@ const Container = styled.div`
 `;
 
 const FormContainer = styled.div`
-  width: 400px; /* Adjusted width */
+  width: 500px; /* Adjusted width */
   padding: 20px;
   margin-right: 20px;
   margin-bottom: 20px;
@@ -49,6 +50,24 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const InventoryItemContainer = styled.div`
+  background-color: rgba(44, 36, 36, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: inset -6px -4px 2px rgba(255, 255, 255, 0.03);
+  border-radius: 15px;
+  margin-bottom: 10px;
+  border: 1.5px solid rgba(0, 0, 0, 0.326);
+  color: ${(props) => (props.darkMode ? 'white' : '#413e3e')};
+  padding: 15px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  word-wrap: break-word;
+`;
+
 const StyledNav = styled.nav`
   background-color: #343a40; /* Dark background color */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
@@ -136,11 +155,13 @@ const generateUniqueTitle = (lists, baseTitle) => {
   return uniqueTitle;
 };
 
-function Inventory({darkMode}) {
+function Inventory({ darkMode }) {
   const [lists, setLists] = useState([]);
   const [listTitle, setListTitle] = useState("");
   const [editedTitleId, setEditedTitleId] = useState(null);
   const [expandedLists, setExpandedLists] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     // Fetch inventory lists when component mounts
@@ -283,49 +304,55 @@ function Inventory({darkMode}) {
   const removeItemFromList = (listId, itemId) => {
     const token = JSON.parse(localStorage.getItem("userId"))?.token;
     if (!token) {
-        console.error("Token not found.");
-        return;
+      console.error("Token not found.");
+      return;
     }
 
     fetch("https://pandemiconiummanager.azurewebsites.net/DeleteItem", {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-            id: token,
-            list_name: lists.find((list) => list.id === listId).title,
-            name: lists.find((list) => list.id === listId).items.find((item) => item.id === itemId).name,
-        }),
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        id: token,
+        list_name: lists.find((list) => list.id === listId).title,
+        name: lists
+          .find((list) => list.id === listId)
+          .items.find((item) => item.id === itemId).name,
+      }),
     })
-    .then((response) => {
+      .then((response) => {
         if (!response.ok) {
-            throw new Error("Network response was not ok");
+          throw new Error("Network response was not ok");
         }
         return response.json();
-    })
-    .then((data) => {
+      })
+      .then((data) => {
         console.log("Item deleted successfully:", data);
         // Update the state to remove the deleted item
         setLists((prevLists) =>
-            prevLists.map((list) =>
-                list.id === listId ? {
-                    ...list,
-                    items: list.items.filter((item) => item.id !== itemId),
-                } : list
-            )
+          prevLists.map((list) =>
+            list.id === listId
+              ? {
+                  ...list,
+                  items: list.items.filter((item) => item.id !== itemId),
+                }
+              : list
+          )
         );
         displayPopupMessage("Item removed successfully.");
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.error("Error deleting item:", error);
-    });
-};
+      });
+  };
 
   const createList = () => {
     if (!listTitle) {
-      displayPopupMessage("Title must be there before saving the inventory list");
+      displayPopupMessage(
+        "Title must be there before saving the inventory list"
+      );
       return;
     }
 
@@ -374,6 +401,32 @@ function Inventory({darkMode}) {
     setListTitle(e.target.value);
   };
 
+  const handleSearchChange = (query) => {
+    setSearchQuery(query);
+
+    if (query.trim() === "") {
+      setSearchResults([]);
+      return;
+    }
+
+    const results = lists
+      .filter(
+        (list) =>
+          list.title.toLowerCase().includes(query.toLowerCase()) ||
+          list.items.some((item) =>
+            item.name.toLowerCase().includes(query.toLowerCase())
+          )
+      )
+      .map((list) => ({
+        title: list.title,
+        items: list.items.filter((item) =>
+          item.name.toLowerCase().includes(query.toLowerCase())
+        ),
+      }));
+
+    setSearchResults(results);
+  };
+
   const handleEditTitle = (listId) => {
     setEditedTitleId(listId);
   };
@@ -398,7 +451,14 @@ function Inventory({darkMode}) {
     }));
   };
 
-  const handleEditItem = (listId, itemId, newName, newQuantity, newThreshold, newUnit) => {
+  const handleEditItem = (
+    listId,
+    itemId,
+    newName,
+    newQuantity,
+    newThreshold,
+    newUnit
+  ) => {
     const token = JSON.parse(localStorage.getItem("userId"))?.token;
     if (!token) {
       console.error("Token not found.");
@@ -408,7 +468,9 @@ function Inventory({darkMode}) {
     const requestBody = {
       id: token,
       list_name: lists.find((list) => list.id === listId).title,
-      old_name: lists.find((list) => list.id === listId).items.find((item) => item.id === itemId).name,
+      old_name: lists
+        .find((list) => list.id === listId)
+        .items.find((item) => item.id === itemId).name,
       new_name: newName,
       quantity: newQuantity,
       threshold: newThreshold,
@@ -511,14 +573,33 @@ function Inventory({darkMode}) {
           <CurrentDateTime />
         </div>
       </StyledNav>
-      <Container>
+      <Container darkMode={darkMode}>
+        <div style={{ textAlign: "center", margin: "20px 0" }}>
+          <SearchBox value={searchQuery} onChange={handleSearchChange} />
+        </div>
+
+        {searchResults.length > 0 && (
+          <div className="search-results">
+            <h3>Search Results</h3>
+            {searchResults.map((list, index) => (
+              <div key={index}>
+                <h4>{list.title}</h4>
+                <ul>
+                  {list.items.map((item, idx) => (
+                    <li key={idx}>{item.name}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
         <div
           className="inventory"
           style={{ display: "flex", flexWrap: "wrap" }}
         >
           {Array.isArray(lists) && lists.length > 0 ? (
             lists.map((list) => (
-              <FormContainer key={list.id}>
+              <FormContainer key={list.id} darkMode={darkMode}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ExpandCollapseButton
                     onClick={() => toggleExpandCollapse(list.id)}
@@ -534,9 +615,7 @@ function Inventory({darkMode}) {
                     <StyledInput
                       type="text"
                       value={list.title}
-                      onChange={(e) =>
-                        handleTitleEdit(list.id, e.target.value)
-                      }
+                      onChange={(e) => handleTitleEdit(list.id, e.target.value)}
                       onBlur={() => handleTitleEdit(list.id, list.title)}
                     />
                   ) : (
@@ -553,7 +632,7 @@ function Inventory({darkMode}) {
                   }}
                 >
                   {list.items.map((item) => (
-                    <div key={item.id} className="inventory-item">
+                    <InventoryItemContainer key={item.id} className="inventory-item" darkMode={darkMode}>
                       <div>
                         <h3>{item.name}</h3>
                         <p>
@@ -571,7 +650,7 @@ function Inventory({darkMode}) {
                       >
                         Remove
                       </button>
-                    </div>
+                    </InventoryItemContainer>
                   ))}
                   <CreateInventoryItem
                     addItem={(item) => addItemToList(list.title, item)}
@@ -589,7 +668,7 @@ function Inventory({darkMode}) {
           ) : (
             <NoInventoryLists darkMode={darkMode} />
           )}
-          <FormContainer>
+          <FormContainer darkMode={darkMode}>
             <StyledInput
               type="text"
               placeholder="Enter List Title"
