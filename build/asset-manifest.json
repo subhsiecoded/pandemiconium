@@ -1,19 +1,36 @@
 {
   "files": {
-    "main.css": "/static/css/main.02caf4d2.css",
-    "main.js": "/static/js/main.7352bcbd.js",
+    "main.css": "/static/css/main.4da35356.css",
+    "main.js": "/static/js/main.356655c8.js",
     "static/js/453.d855a71b.chunk.js": "/static/js/453.d855a71b.chunk.js",
+    "static/media/ack.png": "/static/media/ack.24bbdca53961f255c5f3.png",
+    "static/media/news.png": "/static/media/news.e5f9ae4b719162213b2a.png",
+    "static/media/pandemic.png": "/static/media/pandemic.1d0df8ea127603b0cd00.png",
+    "static/media/inventory.png": "/static/media/inventory.a1bde70bf3e12a4ab0c7.png",
+    "static/media/noteshome.png": "/static/media/noteshome.8e33e40055b49cbd3742.png",
     "static/media/logo.png": "/static/media/logo.01ba75d7c453706d1d55.png",
+    "static/media/newsbackground.png": "/static/media/newsbackground.f0cd94a3e9935a8ff0f5.png",
+    "static/media/logoalpha.png": "/static/media/logoalpha.d29dbb2f8e5b2453bbda.png",
+    "static/media/bhumika.jpg": "/static/media/bhumika.430fd8b87dfc3c1427f9.jpg",
+    "static/media/invlist.png": "/static/media/invlist.4fe99aa0d9af535480a5.png",
+    "static/media/notes.png": "/static/media/notes.5dc0cd403b0c88a014df.png",
+    "static/media/muhsin.jpg": "/static/media/muhsin.6ff289aa5edfc81ec3ee.jpg",
     "static/media/logonav.png": "/static/media/logonav.1d3edfc0d9d4088ce5e8.png",
+    "static/media/reminder.png": "/static/media/reminder.1a8f740e076bac6816fe.png",
+    "static/media/subhasish.jpg": "/static/media/subhasish.5d104ad771131f0082c7.jpg",
+    "static/media/Kreasi-YqEjO.otf": "/static/media/Kreasi-YqEjO.a60b9177fb42102c5c2b.otf",
     "static/media/sun.png": "/static/media/sun.2553be0f58e4e34e0994.png",
+    "static/media/AGoblinAppears-o2aV.ttf": "/static/media/AGoblinAppears-o2aV.299320c4a0ae2d2b8960.ttf",
     "static/media/moon.png": "/static/media/moon.f0bfb4c83f999f0532f5.png",
+    "static/media/show-password.png": "/static/media/show-password.54b3107d160578572bcc.png",
+    "static/media/hide-password.png": "/static/media/hide-password.180932f866861728bd41.png",
     "index.html": "/index.html",
-    "main.02caf4d2.css.map": "/static/css/main.02caf4d2.css.map",
-    "main.7352bcbd.js.map": "/static/js/main.7352bcbd.js.map",
+    "main.4da35356.css.map": "/static/css/main.4da35356.css.map",
+    "main.356655c8.js.map": "/static/js/main.356655c8.js.map",
     "453.d855a71b.chunk.js.map": "/static/js/453.d855a71b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.02caf4d2.css",
-    "static/js/main.7352bcbd.js"
+    "static/css/main.4da35356.css",
+    "static/js/main.356655c8.js"
   ]
 }
