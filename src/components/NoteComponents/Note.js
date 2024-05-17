@@ -20,7 +20,7 @@ function Note({
   };
 
   const handleDelete = () => {
-      deleteNote(note);
+    deleteNote(note);
   };
 
   const handleTextChange = (event) => {
@@ -28,11 +28,10 @@ function Note({
   };
 
   const handleSave = () => {
-    const newTimestamp = new Date().toISOString(); // Get the current timestamp
-    saveNote(editedNote.title, editedNote.text, newTimestamp); // Pass parameters without 'id'
+    const newTimestamp = new Date().toISOString();
+    saveNote(editedNote.title, editedNote.text, newTimestamp);
     setIsEdited(false);
   };
-  
 
   const handleEditClick = () => {
     setIsEdited(true);
@@ -47,12 +46,12 @@ function Note({
 
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
-    const month = date.toLocaleString("default", { month: "short" }); // Get short month name
+    const month = date.toLocaleString("default", { month: "short" });
     const time = date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit", // Include seconds
-    }); // Get hour, minute, and seconds
+      second: "2-digit",
+    });
     return `${date.getDate()} ${month} ${date.getFullYear()} ${time}`;
   };
 
@@ -91,6 +90,8 @@ function Note({
               overflowY: "auto",
               height: "150px",
               marginBottom: "0",
+              fontFamily: "inherit",
+              fontSize: "18px",
             }}
           />
           <div className="d-flex align-items-center">
@@ -105,22 +106,31 @@ function Note({
             <h3 style={{ fontWeight: "bold" }}>{title}</h3>
           </div>
           {text && (
-            <div
-              className="note__body"
-              style={{ overflowY: "auto", maxHeight: "150px" }}
+            <textarea
+              value={text}
+              readOnly
+              style={{
+                width: "100%",
+                resize: "none",
+                overflowY: "auto",
+                height: "150px",
+                marginBottom: "0",
+                fontFamily: "inherit",
+                fontSize: "18px",
+                border: "none",
+                backgroundColor: "transparent",
+                outline: "none",
+              }}
             >
               {text}
-            </div>
+            </textarea>
           )}
           <div
             className="note__footer"
-            style={{
-              justifyContent: "space-between",
-              alignItems: "flex-end",
-            }}
+            style={{ justifyContent: "space-between", alignItems: "flex-end" }}
           >
             {text && <div className="text-counter">{text.length}/1000</div>}
-            <div className="note-timestamp">{timestamp}</div>
+            <div className="note-timestamp">{formatTimestamp(timestamp)}</div>
             <DeleteForeverOutlinedIcon
               className="note__delete"
               onClick={handleDelete}
