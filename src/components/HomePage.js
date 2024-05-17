@@ -15,7 +15,7 @@ import logoWatermark from "./img/logoalpha.png";
 import logo from "./img/logonav.png";
 import CurrentDateTime from "./CurrentDateTime";
 import Customheaderfont from "./fonts/AGoblinAppears-o2aV.ttf";
-import Custombodyfont from "./fonts/Magelo-q2oRq.otf";
+import Custombodyfont from "./fonts/Kreasi-YqEjO.otf";
 import HomePageHeader from "./headers/HomePageHeader";
 
 const Section = styled.section`
@@ -65,7 +65,7 @@ const SectionContent = styled.div`
   margin-top: 20px;
   line-height: 1.6;
   flex: 1;
-  font-family: "CustomContentFont", cursive;
+  font-family: "Comic-Sans MS", cursive;
   font-size: 24px; /* Increase the font size */
 `;
 
@@ -115,37 +115,37 @@ const DeveloperName = styled.h3`
   font-family: "CustomBodyFont", cursive;
 `;
 const StyledNav = styled.nav`
-  background-color: #343a40; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
-  padding: 0.5rem 1rem; 
+  background-color: #343a40;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1rem;
 
   .navbar-brand {
     color: #fff; /* Set the logo text color to white */
   }
 
   .nav-link {
-    color: #ccc; 
+    color: #ccc;
     transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 0.5rem 1rem; 
-    border-radius: 0.25rem; 
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
 
     &:hover {
-      background-color: #fff; 
-      color: #343a40; 
+      background-color: #fff;
+      color: #343a40;
     }
 
     &.active {
-      background-color: #007bff; 
-      color: #fff; 
+      background-color: #007bff;
+      color: #fff;
     }
   }
 
   .navbar-toggler {
-    border-color: #ccc; 
+    border-color: #ccc;
   }
 
   .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); 
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   }
 `;
 
@@ -170,15 +170,16 @@ const HomePage = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (aboutRef.current) {
-        // Check if aboutRef.current is not null
+      const sections = ["pandemic", "history", "notes", "news", "inventory"];
+      sections.forEach((section) => {
+        const sectionRef = document.getElementById(section);
         if (
-          aboutRef.current.getBoundingClientRect().top <
-          window.innerHeight * 0.75
+          sectionRef &&
+          sectionRef.getBoundingClientRect().top < window.innerHeight * 0.75
         ) {
-          setAboutVisible(true);
+          toggleCollapse(section);
         }
-      }
+      });
 
       if (window.scrollY > 100) {
         setShowScrollButton(true);
