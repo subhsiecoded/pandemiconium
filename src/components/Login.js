@@ -6,24 +6,27 @@ import ForgotPassword from "./ForgotPassword";
 import PasswordInput from "./PasswordInput";
 
 const Container = styled.div`
+  color: ${(props) => (props.darkMode ? "white" : "black")};
+  background-image: url(${logoWatermark}); /* Static image */
+  background-repeat: repeat;
+  height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  min-height: 100vh;
-  color: ${(props) => (props.darkMode ? "#fff" : "#222")}; /* Text color */
-  background-image: url(${logoWatermark});
-  background-repeat: repeat; /* Repeat the watermark across the entire background */
+  padding-top: 50px;
 `;
 
 const FormContainer = styled.div`
-  width: 90%;
-  max-width: 400px;
+  width: 500px;
   padding: 20px;
+  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #ffffff;
+  background-color: ${(props) => (props.darkMode ? "#333" : "#ffffff")};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  color: ${(props) => (props.darkMode ? "#fff" : "#222")}; /* Text color */
+  color: ${(props) => (props.darkMode ? "#fff" : "#222")};
+  /* Text color */
 `;
 
 const VirusIcon = () => (
@@ -39,7 +42,7 @@ const VirusIcon = () => (
   </svg>
 );
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, darkMode }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); // Use useNavigate hook
@@ -77,8 +80,8 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <Container>
-      <FormContainer>
+    <Container darkMode={darkMode}>
+      <FormContainer darkMode={darkMode}>
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-3">

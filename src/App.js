@@ -175,8 +175,8 @@ const App = () => {
       <CustomCursor />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/signup" element={<Signup onSignup={handleLogin} />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} darkMode={darkMode}/>} />
+        <Route path="/signup" element={<Signup onSignup={handleLogin} darkMode={darkMode}/>} />
         <Route
           path="/home"
           element={

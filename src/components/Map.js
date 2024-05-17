@@ -62,7 +62,8 @@ const Map = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [selectedType, setSelectedType] = useState(""); // State to store selected place type
+  const [starredLocations, setStarredLocations] = useState([]);
+  const [selectedLocationDetails, setSelectedLocationDetails] = useState(null);
 
   useEffect(() => {
     const fetchUserLocation = async () => {
@@ -70,7 +71,7 @@ const Map = () => {
         const position = await getCurrentPosition();
         const { latitude, longitude } = position.coords;
         setUserLocation({ latitude, longitude });
-        setLoading(false); // Update loading state after successfully fetching user location
+        setLoading(false);
       } catch (error) {
         console.error("Error getting location:", error);
         toast.error(
@@ -92,7 +93,6 @@ const Map = () => {
 
   useEffect(() => {
     if (userLocation) {
-      // Fetch nearby places once userLocation is available
       fetchNearbyPlaces(userLocation.latitude, userLocation.longitude);
     }
   }, [userLocation]);
@@ -100,7 +100,7 @@ const Map = () => {
   const fetchNearbyPlaces = async (latitude, longitude) => {
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=1500&type=${selectedType}&key=GOOGLE_MAPS_API`
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=1500&type=hospital&key=GOOGLE_MAPS_API`
       );
 
       if (!response.ok) {
@@ -112,10 +112,9 @@ const Map = () => {
         name: result.name,
         latitude: result.geometry.location.lat,
         longitude: result.geometry.location.lng,
-        type: result.types[0], // Assuming the first type is the most relevant
+        type: result.types[0],
         address: result.vicinity,
         rating: result.rating,
-        // Add more relevant details here
       }));
 
       setNearbyPlaces(places);
@@ -131,7 +130,7 @@ const Map = () => {
   const handleSearchSubmit = async () => {
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchQuery}&type=${selectedType}&key=GOOGLE_MAPS_API`
+        `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchQuery}&type=hospital&key=GOOGLE_MAPS_API`
       );
 
       if (!response.ok) {
@@ -143,15 +142,14 @@ const Map = () => {
         name: result.name,
         latitude: result.geometry.location.lat,
         longitude: result.geometry.location.lng,
-        type: result.types[0], // Assuming the first type is the most relevant
+        type: result.types[0],
         address: result.formatted_address,
         rating: result.rating,
-        // Add more relevant details here
       }));
 
       setNearbyPlaces(places);
       if (places.length > 0) {
-        const { latitude, longitude } = places[0]; // Assuming the first place is the most relevant
+        const { latitude, longitude } = places[0];
         setUserLocation({ latitude, longitude });
       }
     } catch (error) {
@@ -161,7 +159,6 @@ const Map = () => {
 
   const navigateToCurrentLocation = () => {
     if (userLocation) {
-      // Scroll to current location
       window.scrollTo({
         top: userLocation.latitude,
         left: userLocation.longitude,
@@ -173,9 +170,96 @@ const Map = () => {
   const handlePlaceClick = (place) => {
     setSelectedPlace(place);
   };
+  const LocationDetails = ({
+    location,
+    starredLocations,
+    handleStarLocation,
+    handleUnstarLocation,
+  }) => {
+    return (
+      <div
+        style={{
+          position: "absolute",
+          bottom: "10px",
+          left: "10px",
+          zIndex: 9999,
+          backgroundColor: "white",
+          padding: "10px",
+          borderRadius: "5px",
+        }}
+      >
+        <h4>{location.name}</h4>
+        <p>Latitude: {location.latitude}</p>
+        <p>Longitude: {location.longitude}</p>
+        <p>Address: {location.address}</p>
+        <p>Rating: {location.rating}</p>
+        <button
+          onClick={() => {
+            starredLocations.some((loc) => loc.name === location.name)
+              ? handleUnstarLocation(location)
+              : handleStarLocation(location);
+            setSelectedLocationDetails(null);
+          }}
+        >
+          {starredLocations.some((loc) => loc.name === location.name)
+            ? "Unstar"
+            : "Star"}
+        </button>
+      </div>
+    );
+  };
+  const handleStarLocation = (location) => {
+    const locationDetails = {
+      name: location.name,
+      latitude: location.latitude,
+      longitude: location.longitude,
+      type: location.type,
+      address: location.address,
+      rating: location.rating,
+    };
 
-  const handleTypeChange = (e) => {
-    setSelectedType(e.target.value);
+    setStarredLocations((prevStarredLocations) => [
+      ...prevStarredLocations,
+      locationDetails,
+    ]);
+  };
+
+  const handleUnstarLocation = (location) => {
+    setStarredLocations((prevStarredLocations) =>
+      prevStarredLocations.filter((loc) => loc.name !== location.name)
+    );
+  };
+
+  const StarredLocations = ({ locations, onUnstar }) => {
+    return (
+      <div
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          zIndex: 9999,
+          backgroundColor: "white",
+          padding: "10px",
+          borderRadius: "5px",
+          maxHeight: "400px",
+          overflowY: "auto",
+        }}
+      >
+        <h4>Starred Locations ({locations.length})</h4>
+        <ul>
+          {locations.map((location, index) => (
+            <li key={index}>
+              <h5>{location.name}</h5>
+              <p>Latitude: {location.latitude}</p>
+              <p>Longitude: {location.longitude}</p>
+              <p>Address: {location.address}</p>
+              <p>Rating: {location.rating}</p>
+              <button onClick={() => onUnstar(location)}>&#10005;</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   };
 
   return (
@@ -240,7 +324,7 @@ const Map = () => {
             zoom={13}
             style={{ height: "100%", width: "100%" }}
             onMapInit={(map) => {
-              map.on("click", () => setSelectedPlace(null)); // Clear selected place on map click
+              map.on("click", () => setSelectedPlace(null));
             }}
           >
             <TileLayer
@@ -250,7 +334,7 @@ const Map = () => {
             {userLocation && (
               <Marker
                 position={[userLocation.latitude, userLocation.longitude]}
-                icon={homeIcon} // Use custom icon for the current location
+                icon={homeIcon}
               >
                 <Popup>You are here</Popup>
               </Marker>
@@ -259,10 +343,21 @@ const Map = () => {
               <Marker
                 key={index}
                 position={[place.latitude, place.longitude]}
-                onClick={() => handlePlaceClick(place)}
-              >
-                <Popup>{place.name}</Popup>
-              </Marker>
+                onClick={() => {
+                  setSelectedLocationDetails({
+                    name: place.name,
+                    latitude: place.latitude,
+                    longitude: place.longitude,
+                    type: place.type,
+                    address: place.address,
+                    rating: place.rating,
+                  });
+
+                  starredLocations.some((loc) => loc.name === place.name)
+                    ? handleUnstarLocation(place)
+                    : handleStarLocation(place);
+                }}
+              />
             ))}
           </MapContainer>
         )}
@@ -296,17 +391,6 @@ const Map = () => {
             placeholder="Search for places"
             style={{ padding: "5px", width: "200px", marginRight: "10px" }}
           />
-          <select
-            value={selectedType}
-            onChange={handleTypeChange}
-            style={{ padding: "5px", marginRight: "10px" }}
-          >
-            <option value="">Select Type</option>
-            <option value="hospital">Hospital</option>
-            <option value="medical store">Medical Store</option>
-            <option value="nursing home">Nursing Home</option>
-            {/* Add more options as needed */}
-          </select>
           <button
             onClick={handleSearchSubmit}
             style={{ padding: "5px", cursor: "pointer" }}
@@ -317,7 +401,7 @@ const Map = () => {
             onClick={navigateToCurrentLocation}
             style={{ padding: "5px", cursor: "pointer", marginLeft: "10px" }}
           >
-            <MdMyLocation size={24} /> {/* Using MdMyLocation icon */}
+            <MdMyLocation size={24} />
           </button>
         </div>
         {selectedPlace && (
@@ -335,7 +419,6 @@ const Map = () => {
             <h4>{selectedPlace.name}</h4>
             <p>{selectedPlace.address}</p>
             <p>Rating: {selectedPlace.rating}</p>
-            {/* Add more details as needed */}
             <button
               onClick={() => setSelectedPlace(null)}
               style={{ cursor: "pointer" }}
@@ -344,6 +427,10 @@ const Map = () => {
             </button>
           </div>
         )}
+        <StarredLocations
+          locations={starredLocations}
+          onUnstar={handleUnstarLocation}
+        />
       </div>
     </>
   );
