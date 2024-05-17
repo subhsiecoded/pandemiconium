@@ -15,7 +15,7 @@ import logoWatermark from "./img/logoalpha.png";
 import logo from "./img/logonav.png";
 import CurrentDateTime from "./CurrentDateTime";
 import Customheaderfont from "./fonts/AGoblinAppears-o2aV.ttf";
-import Custombodyfont from "./fonts/Kreasi-YqEjO.otf";
+import Custombodyfont from "./fonts/Magelo-q2oRq.otf";
 import HomePageHeader from "./headers/HomePageHeader";
 
 const Section = styled.section`
