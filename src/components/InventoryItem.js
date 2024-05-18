@@ -23,23 +23,14 @@ function InventoryItem({ item, removeItem, updateItem }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedItem((prevItem) => ({
-      ...prevItem,
-      [name]: value,
-    }));
+    setEditedItem((prevItem) => ({ ...prevItem, [name]: value }));
   };
 
   return (
     <div className="inventory-item">
       {isEditing ? (
         <div>
-          <input
-            type="text"
-            name="name"
-            value={editedItem.name}
-            onChange={handleInputChange}
-            placeholder="Name"
-          />
+          <h3>{item.name}</h3>
           <input
             type="number"
             name="quantity"
@@ -70,8 +61,12 @@ function InventoryItem({ item, removeItem, updateItem }) {
       ) : (
         <div>
           <h3>{item.name}</h3>
-          <p>Quantity: {item.quantity} {item.unit}</p>
-          <p>Threshold: {item.threshold} {item.unit}</p>
+          <p>
+            Quantity: {item.quantity} {item.unit}
+          </p>
+          <p>
+            Threshold: {item.threshold} {item.unit}
+          </p>
           <button onClick={handleEditClick}>Edit</button>
           <button onClick={() => removeItem(item.id)}>Remove</button>
         </div>

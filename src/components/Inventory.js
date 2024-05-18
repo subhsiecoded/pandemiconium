@@ -158,10 +158,11 @@ const generateUniqueTitle = (lists, baseTitle) => {
 function Inventory({ darkMode }) {
   const [lists, setLists] = useState([]);
   const [listTitle, setListTitle] = useState("");
-  const [editedTitleId, setEditedTitleId] = useState(null);
   const [expandedLists, setExpandedLists] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [editingItemId, setEditingItemId] = useState(null);
+  const [oldQuantity, setOldQuantity] = useState(null);
 
   useEffect(() => {
     // Fetch inventory lists when component mounts
@@ -348,6 +349,10 @@ function Inventory({ darkMode }) {
       });
   };
 
+   const handleListTitleChange = (event) => {
+    setListTitle(event.target.value);
+  };
+
   const createList = () => {
     if (!listTitle) {
       displayPopupMessage(
@@ -397,10 +402,6 @@ function Inventory({ darkMode }) {
     displayPopupMessage("List deleted successfully.");
   };
 
-  const handleListTitleChange = (e) => {
-    setListTitle(e.target.value);
-  };
-
   const handleSearchChange = (query) => {
     setSearchQuery(query);
 
@@ -427,23 +428,6 @@ function Inventory({ darkMode }) {
     setSearchResults(results);
   };
 
-  const handleEditTitle = (listId) => {
-    setEditedTitleId(listId);
-  };
-
-  const handleTitleEdit = (listId, newTitle) => {
-    setLists((prevLists) =>
-      prevLists.map((list) => {
-        if (list.id === listId) {
-          return { ...list, title: newTitle };
-        }
-        return list;
-      })
-    );
-    setEditedTitleId(null);
-    displayPopupMessage("List title updated successfully.");
-  };
-
   const toggleExpandCollapse = (listId) => {
     setExpandedLists((prevExpandedLists) => ({
       ...prevExpandedLists,
@@ -451,7 +435,15 @@ function Inventory({ darkMode }) {
     }));
   };
 
-  const handleEditItem = (
+  const handleEditItem = (listId, itemId) => {
+    setEditingItemId(itemId);
+    const item = lists
+      .find((list) => list.id === listId)
+      .items.find((item) => item.id === itemId);
+    setOldQuantity(item.quantity);
+  };
+
+  const handleUpdateItem = (
     listId,
     itemId,
     newName,
@@ -475,6 +467,7 @@ function Inventory({ darkMode }) {
       quantity: newQuantity,
       threshold: newThreshold,
       unit: newUnit,
+      old_quantity: oldQuantity,
     };
 
     fetch("https://pandemiconiummanager.azurewebsites.net/UpdateItem", {
@@ -514,12 +507,19 @@ function Inventory({ darkMode }) {
               : list
           )
         );
+        setEditingItemId(null);
+        setOldQuantity(null);
         displayPopupMessage("Item updated successfully.");
       })
       .catch((error) => {
         console.error("Error updating item:", error.message);
         displayPopupMessage("Error updating item. Please try again later.");
       });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingItemId(null);
+    setOldQuantity(null);
   };
 
   return (
@@ -619,18 +619,7 @@ function Inventory({ darkMode }) {
                   >
                     +
                   </ExpandCollapseButton>
-                  {editedTitleId === list.id ? (
-                    <StyledInput
-                      type="text"
-                      value={list.title}
-                      onChange={(e) => handleTitleEdit(list.id, e.target.value)}
-                      onBlur={() => handleTitleEdit(list.id, list.title)}
-                    />
-                  ) : (
-                    <h2 onClick={() => handleEditTitle(list.id)}>
-                      {list.title}
-                    </h2>
-                  )}
+                  <h2>{list.title}</h2>
                 </div>
                 <div
                   style={{
@@ -645,23 +634,38 @@ function Inventory({ darkMode }) {
                       className="inventory-item"
                       darkMode={darkMode}
                     >
-                      <div>
-                        <h3>{item.name}</h3>
-                        <p>
-                          Quantity: {item.quantity} {item.unit}{" "}
-                        </p>
-                        <p>
-                          Threshold: {item.threshold} {item.unit}{" "}
-                        </p>
-                      </div>
-                      <EditButton>Edit</EditButton>
-                      <button
-                        type="button"
-                        className="btn btn-secondary"
-                        onClick={() => removeItemFromList(list.id, item.id)}
-                      >
-                        Remove
-                      </button>
+                      {editingItemId === item.id ? (
+                        <InventoryItem
+                          item={item}
+                          onUpdate={handleUpdateItem}
+                          onCancel={handleCancelEdit}
+                          listId={list.id}
+                        />
+                      ) : (
+                        <>
+                          <div>
+                            <h3>{item.name}</h3>
+                            <p>
+                              Quantity: {item.quantity} {item.unit}
+                            </p>
+                            <p>
+                              Threshold: {item.threshold} {item.unit}
+                            </p>
+                          </div>
+                          <EditButton
+                            onClick={() => handleEditItem(list.id, item.id)}
+                          >
+                            Edit
+                          </EditButton>
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => removeItemFromList(list.id, item.id)}
+                          >
+                            Remove
+                          </button>
+                        </>
+                      )}
                     </InventoryItemContainer>
                   ))}
                   <CreateInventoryItem
