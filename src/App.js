@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./components/HomePage";
@@ -16,7 +16,7 @@ import { UserIdProvider } from "./components/UserIdContext";
 import logoWatermark from "./components/img/logo.png";
 import moonIcon from "./components/img/moon.png";
 import sunIcon from "./components/img/sun.png";
-import CustomCursor from './components/CustomCursor';
+import CustomCursor from "./components/CustomCursor";
 import MapLoadScript from "./components/MapLoadScript";
 import MapComponent from "./components/MapComponent";
 
@@ -93,10 +93,10 @@ const FormContainer = styled.div`
   align-items: center; /* Center the items horizontally */
 `;
 
-const LandingPage = () => {
+const LandingPage = ({darkMode}) => {
   return (
     <Container>
-      <FormContainer>
+      <FormContainer darkMode={darkMode}>
         <div>
           <h2 style={{ textAlign: "center" }}>
             Welcome to Pandemiconium. <br />
@@ -120,13 +120,13 @@ const LandingPage = () => {
   );
 };
 
-const HomePageWrapper = ({ isLoggedIn, children }) => {
+const HomePageWrapper = ({ isLoggedIn, children}) => {
   if (!isLoggedIn) {
     return (
       <LogoNoUser>
         <Wrapper>
           <FormContainer>
-            <Message>Please log in to access this page.</Message>
+            <Message >Please log in to access this page.</Message>
             <ButtonContainer>
               <Button to="/login" color="#007bff" hoverColor="#0056b3">
                 Login
@@ -157,6 +157,7 @@ const App = () => {
   const handleLogin = () => {
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("darkMode", darkMode.toString());
   };
 
   const handleLogout = () => {
@@ -175,9 +176,20 @@ const App = () => {
       <GlobalStyle darkMode={darkMode} />
       <CustomCursor />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login onLogin={handleLogin} darkMode={darkMode}/>} />
-        <Route path="/signup" element={<Signup onSignup={handleLogin} darkMode={darkMode}/>} />
+        <Route
+          path="/"
+          element={
+            isLoggedIn ? <Navigate to="/home" replace /> : <LandingPage />
+          }
+        />
+        <Route
+          path="/login"
+          element={<Login onLogin={handleLogin} darkMode={darkMode} />}
+        />
+        <Route
+          path="/signup"
+          element={<Signup onSignup={handleLogin} darkMode={darkMode} />}
+        />
         <Route
           path="/home"
           element={
@@ -190,7 +202,7 @@ const App = () => {
           path="/pandemic"
           element={
             <HomePageWrapper isLoggedIn={isLoggedIn}>
-              <Pandemicinfo onLogout={handleLogout} darkMode={darkMode}/>{" "}
+              <Pandemicinfo onLogout={handleLogout} setDarkMode={setDarkMode} darkMode={darkMode} />{" "}
             </HomePageWrapper>
           }
         />
@@ -200,6 +212,7 @@ const App = () => {
             <HomePageWrapper isLoggedIn={isLoggedIn}>
               <NewsApp
                 onLogout={handleLogout}
+                setDarkMode={setDarkMode}
                 userId={JSON.parse(localStorage.getItem("token"))}
                 darkMode={darkMode}
               />
@@ -212,6 +225,7 @@ const App = () => {
             <HomePageWrapper isLoggedIn={isLoggedIn}>
               <NotesApp
                 onLogout={handleLogout}
+                setDarkMode={setDarkMode}
                 userId={localStorage.getItem("userId")}
                 darkMode={darkMode}
               />{" "}
@@ -222,7 +236,7 @@ const App = () => {
           path="/inv"
           element={
             <HomePageWrapper isLoggedIn={isLoggedIn}>
-              <Inventory onLogout={handleLogout} darkMode={darkMode}/>{" "}
+              <Inventory onLogout={handleLogout} setDarkMode={setDarkMode} darkMode={darkMode} />{" "}
             </HomePageWrapper>
           }
         />
@@ -230,21 +244,16 @@ const App = () => {
           path="/map"
           element={
             <HomePageWrapper isLoggedIn={isLoggedIn}>
-              <Map onLogout={handleLogout} darkMode={darkMode}/>{" "}
+              <Map onLogout={handleLogout} setDarkMode={setDarkMode} darkMode={darkMode} />{" "}
             </HomePageWrapper>
           }
         />
-        <Route
-          path="/gmap-hidden"
-          element={
-            <MapComponent />
-          }
-        />
+        <Route path="/gmap-hidden" element={<MapComponent />} />
         <Route
           path="/remind"
           element={
             <HomePageWrapper isLoggedIn={isLoggedIn}>
-              <ReminderApp onLogout={handleLogout} darkMode={darkMode}/>{" "}
+              <ReminderApp onLogout={handleLogout} darkMode={darkMode} />{" "}
             </HomePageWrapper>
           }
         />

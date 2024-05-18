@@ -17,6 +17,8 @@ import CurrentDateTime from "./CurrentDateTime";
 import Customheaderfont from "./fonts/AGoblinAppears-o2aV.ttf";
 import Custombodyfont from "./fonts/Kreasi-YqEjO.otf";
 import HomePageHeader from "./headers/HomePageHeader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Section = styled.section`
   margin: 40px;
@@ -28,14 +30,14 @@ const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   background-size: fit;
-  background-image: url(${logoWatermark}); 
+  background-image: url(${logoWatermark});
   background-repeat: no-repeat;
   background-position: center;
-  background-attachment: fixed; 
+  background-attachment: fixed;
   ${({ darkMode }) =>
     darkMode &&
     css`
-      background-color: #000; 
+      background-color: #000;
     `}
 `;
 
@@ -194,6 +196,47 @@ const HomePage = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const toastMessages = [
+      {
+        message: "Check the latest news about the pandemic here",
+        path: "/news",
+      },
+      {
+        message: "View and manage your inventory here",
+        path: "/inv",
+      },
+      {
+        message: "How to stay safe during and after a pandemic",
+        path: "/pandemic",
+      },
+    ];
+  
+    const interval = setInterval(() => {
+      const message = toastMessages.shift();
+      if (message) {
+        const toastId = toast(
+          <div style={{ fontFamily: "Comic Sans MS", color: "#333", fontWeight: "bold" }}>
+            {message.message}
+          </div>,
+          {
+            position: "bottom-right",
+            autoClose: 20000, // 20 seconds
+            onClick: () => navigateToPage(message.path),
+          }
+        );
+      } else {
+        clearInterval(interval);
+      }
+    }, 5000); // 5 seconds after the user views the home page
+  
+    return () => clearInterval(interval);
+  }, []);
+
+  const navigateToPage = (path) => {
+    window.location.href = path;
+  };
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -576,6 +619,7 @@ const HomePage = () => {
           )}
         </Container>
       </div>
+      <ToastContainer />
     </>
   );
 };
