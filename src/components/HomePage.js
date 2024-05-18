@@ -28,14 +28,14 @@ const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   background-size: fit;
-  background-image: url(${logoWatermark}); /* Apply the background image */
+  background-image: url(${logoWatermark}); 
   background-repeat: no-repeat;
   background-position: center;
-  background-attachment: fixed; /* Keep the background fixed */
+  background-attachment: fixed; 
   ${({ darkMode }) =>
     darkMode &&
     css`
-      background-color: #000; /* Change to black background color */
+      background-color: #000; 
     `}
 `;
 

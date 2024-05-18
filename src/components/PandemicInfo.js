@@ -17,7 +17,7 @@ const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   background-size: fit;
-  background-image: url(${(props) => props.backgroundImage});
+  background-image: url(${logoWatermark});
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -291,12 +291,12 @@ const Pandemicinfo = () => {
                   alt={`Section ${index + 1}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 1.0 }}
                 />
                 <SectionContent
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
                 >
                   {section.content.map((item, i) =>
                     Array.isArray(item) ? (
