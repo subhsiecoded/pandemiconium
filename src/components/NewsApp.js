@@ -1,4 +1,3 @@
-// Import React and other necessary modules
 import React, { useState, useEffect } from "react";
 import ArticleGrid from "./ArticleGrid";
 import StarredArticles from "./StarredArticles";
@@ -98,10 +97,10 @@ const NewsApp = ({ onLogout, darkMode }) => {
   const [covidCollapsed, setCovidCollapsed] = useState(false);
   const [vaccineCollapsed, setVaccineCollapsed] = useState(false);
   const [generalCollapsed, setGeneralCollapsed] = useState(false); 
-  // const apiKey = "7e37076f4c10468b8ba932870b434b0b";
-  // const covidApiUrl = `https://newsapi.org/v2/everything?q=covid&apiKey=${apiKey}&language=en`;
-  // const vaccineApiUrl = `https://newsapi.org/v2/everything?q=vaccine&apiKey=${apiKey}&language=en`;
-  // const generalApiUrl = `https://newsapi.org/v2/everything?q=healthcare+India&apiKey=${apiKey}&language=en`;
+  const apiKey = "7e37076f4c10468b8ba932870b434b0b";
+  const covidApiUrl = `https://newsapi.org/v2/everything?q=covid&apiKey=${apiKey}&language=en`;
+  const vaccineApiUrl = `https://newsapi.org/v2/everything?q=vaccine&apiKey=${apiKey}&language=en`;
+  const generalApiUrl = `https://newsapi.org/v2/everything?q=healthcare+India&apiKey=${apiKey}&language=en`;
 
   // useEffect hook to fetch data
   useEffect(() => {
@@ -128,14 +127,28 @@ const NewsApp = ({ onLogout, darkMode }) => {
   // Function to fetch news based on category
   const fetchNews = async (category) => {
     try {
-      const response = await fetch(`/api/fetchNews?category=${category}`);
+      let apiUrl;
+      switch (category) {
+        case "covid":
+          apiUrl = covidApiUrl;
+          break;
+        case "vaccine":
+          apiUrl = vaccineApiUrl;
+          break;
+        case "general":
+          apiUrl = generalApiUrl;
+          break;
+        default:
+          return;
+      }
+      const response = await fetch(apiUrl);
       const data = await response.json();
       if (category === "covid") {
         setCovidNews(data.articles);
       } else if (category === "vaccine") {
         setVaccineNews(data.articles);
       } else if (category === "general") {
-        setGeneralNews(data.articles);
+        setGeneralNews(data.articles); // Set general news data
       }
     } catch (error) {
       console.error(`Error fetching ${category} news:`, error);
@@ -382,5 +395,4 @@ const NewsApp = ({ onLogout, darkMode }) => {
   );
 };
 
-// Export the NewsApp component
 export default NewsApp;
