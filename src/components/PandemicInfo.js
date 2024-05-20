@@ -151,7 +151,7 @@ const Pandemicinfo = () => {
           "Take actions to prevent the spread of disease. Cover coughs and sneezes. Wear a mask in public. Stay home when sick (except to get medical care). Disinfect surfaces. Wash hands with soap and water for at least 20 seconds. If soap and water are not available, use a hand sanitizer that contains at least 60 percent alcohol. Stay six feet away from people who are not part of your household.",
         ],
         [
-          "If you believe you’ve been exposed to the disease, contact your doctor, follow the quarantine instructions from medical providers, and monitor your symptoms. If you’re experiencing a medical emergency, call 9-1-1 and shelter in place with a mask, if possible, until help arrives.",
+          "If you believe you’ve been exposed to the disease, contact your doctor, follow the quarantine instructions from medical providers, and monitor your symptoms.",
         ],
         [
           "Share accurate information about the disease with friends, family, and people on social media. Sharing bad information about the disease or treatments for the disease may have serious health outcomes. Remember that stigma hurts everyone and can cause discrimination against people, places, or nations.",
