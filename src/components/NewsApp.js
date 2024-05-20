@@ -165,7 +165,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
         }
       );
       const data = await response.json();
-      console.log("Response Body:", data);
       if (Array.isArray(data) && data.length >= 2) {
         setStarredArticles(data[1]);
       }

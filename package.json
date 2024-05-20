@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
+    "@mapbox/mapbox-gl-geocoder": "^5.0.2",
     "@mui/icons-material": "^5.15.13",
     "@mui/material": "^5.15.15",
     "@react-google-maps/api": "^2.19.3",
@@ -13,6 +14,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@tweenjs/tween.js": "^23.1.2",
+    "accessor-fn": "^1.5.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "browserify-zlib": "^0.2.0",
@@ -26,6 +29,7 @@
     "https-browserify": "^1.0.0",
     "jquery": "^3.7.1",
     "jwt-decode": "^4.0.0",
+    "kapsule": "^1.14.5",
     "leaflet": "^1.9.4",
     "mapbox-gl": "^3.3.0",
     "mapmyindia-react": "^1.0.6",
@@ -47,6 +51,8 @@
     "stream-http": "^3.2.0",
     "styled-components": "^6.1.8",
     "three": "^0.162.0",
+    "three-globe": "^2.31.0",
+    "three-render-objects": "^1.29.4",
     "url-polyfill": "^1.1.12",
     "web-vitals": "^2.1.4"
   },

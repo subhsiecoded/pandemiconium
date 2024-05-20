@@ -169,6 +169,7 @@ const HomePage = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [aboutVisible, setAboutVisible] = useState(false);
   const aboutRef = useRef(null);
+  const [notificationsShown, setNotificationsShown] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -212,12 +213,18 @@ const HomePage = () => {
         path: "/pandemic",
       },
     ];
-  
+
     const interval = setInterval(() => {
       const message = toastMessages.shift();
       if (message) {
         const toastId = toast(
-          <div style={{ fontFamily: "Comic Sans MS", color: "#333", fontWeight: "bold" }}>
+          <div
+            style={{
+              fontFamily: "Comic Sans MS",
+              color: "#333",
+              fontWeight: "bold",
+            }}
+          >
             {message.message}
           </div>,
           {
@@ -228,11 +235,12 @@ const HomePage = () => {
         );
       } else {
         clearInterval(interval);
+        setNotificationsShown(true);
       }
     }, 5000); // 5 seconds after the user views the home page
-  
+
     return () => clearInterval(interval);
-  }, []);
+  }, [notificationsShown]);
 
   const navigateToPage = (path) => {
     window.location.href = path;

@@ -120,7 +120,7 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
             time_created: new Date(note.time_created).toISOString(), // Convert timestamp to ISO string
           }))
         );
-        console.log("Updated Notes State:", notes); // Log updated notes state
+        // console.log("Updated Notes State:", notes); 
       }
     } catch (error) {
       console.error("Error fetching notes:", error);
@@ -160,7 +160,6 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
   // Handler to save a new note to the backend
   const saveHandler = async (note) => {
     try {
-      console.log(token);
       const response = await fetch(
         `https://pandemiconiummanager.azurewebsites.net/SaveNote`,
         {
@@ -241,7 +240,6 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
         "time_created": newTimestamp,
       };
       
-      console.log(requestBody);
       const response = await fetch(
         "https://pandemiconiummanager.azurewebsites.net/UpdateNote",
         {

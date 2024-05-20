@@ -297,10 +297,6 @@ function ReminderApp({ onLogout, darkMode }) {
         Logout
       </button>
       <button
-        onClick={() => {
-          // Handle dark mode toggle
-          console.log("Dark mode toggle clicked"); // Add this line for debugging
-        }}
         className="btn btn-info darkmodebutton"
         style={{ position: "fixed", top: "20px", right: "20px" }}
       >
