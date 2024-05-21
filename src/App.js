@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./components/HomePage";
 import Signup from "./components/Signup";
 import Pandemicinfo from "./components/PandemicInfo";
-import Map from "./components/Map";
 import Login from "./components/Login";
 import ForgotPassword from "./components/ForgotPassword";
 import NewsApp from "./components/NewsApp";
@@ -17,8 +16,6 @@ import logoWatermark from "./components/img/logo.png";
 import moonIcon from "./components/img/moon.png";
 import sunIcon from "./components/img/sun.png";
 import CustomCursor from "./components/CustomCursor";
-import MapLoadScript from "./components/MapLoadScript";
-import MapComponent from "./components/MapComponent";
 
 import "./styles.css";
 const GlobalStyle = createGlobalStyle`
@@ -240,15 +237,6 @@ const App = () => {
             </HomePageWrapper>
           }
         />
-        <Route
-          path="/map"
-          element={
-            <HomePageWrapper isLoggedIn={isLoggedIn}>
-              <Map onLogout={handleLogout} setDarkMode={setDarkMode} darkMode={darkMode} />{" "}
-            </HomePageWrapper>
-          }
-        />
-        <Route path="/gmap-hidden" element={<MapComponent />} />
         <Route
           path="/remind"
           element={
