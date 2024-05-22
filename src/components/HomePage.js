@@ -350,7 +350,7 @@ const HomePage = () => {
                 </SectionHeading>
                 {!isCollapsed.pandemic && (
                   <motion.div
-                    initial={{ x: "-100vw" }}
+                    initial={{ x: "100vw" }}
                     animate={{ x: 0 }}
                     transition={{ duration: 0.5 }}
                   >
@@ -398,7 +398,7 @@ const HomePage = () => {
                 </SectionHeading>
                 {!isCollapsed.history && (
                   <motion.div
-                    initial={{ x: "100vw" }}
+                    initial={{ x: "-100vw" }}
                     animate={{ x: 0 }}
                     transition={{ duration: 0.5 }}
                   >
@@ -406,45 +406,45 @@ const HomePage = () => {
                       The history of pandemics is extensive and spans thousands
                       of years. Here is an overview of some of the major
                       pandemics that have occurred throughout history: <br />{" "}
-                      <br /> Plague of Athens (430-426 BCE): This epidemic
+                      <br /> <strong>Plague of Athens (430-426 BCE):</strong> This epidemic
                       struck during the Peloponnesian War and is believed to
                       have been caused by either typhoid fever or a form of the
                       plague. It resulted in the deaths of a significant portion
                       of the population of Athens, including its leader,
-                      Pericles. <br /> <br /> Antonine Plague (165-180 CE): This
+                      Pericles. <br /> <br /> <strong>Antonine Plague (165-180 CE):</strong> This
                       outbreak, during the reign of Roman Emperor Marcus
                       Aurelius, is thought to have been either smallpox or
                       measles. It spread throughout the Roman Empire and is
-                      estimated to have killed millions. <br /> <br /> Plague of
-                      Justinian (541-542 CE): Named after the Byzantine Emperor
+                      estimated to have killed millions. <br /> <br /> <strong>Plague of
+                      Justinian (541-542 CE):</strong> Named after the Byzantine Emperor
                       Justinian I, this pandemic was caused by the bubonic
                       plague. It is considered one of the deadliest pandemics in
                       history, killing an estimated 25-50 million people and
                       contributing to the decline of the Byzantine Empire.{" "}
-                      <br /> <br /> Black Death (1347-1351): The Black Death,
+                      <br /> <br /> <strong>Black Death (1347-1351):</strong> The Black Death,
                       caused by the bacterium Yersinia pestis, is perhaps the
                       most infamous pandemic in history. It originated in Asia
                       and spread to Europe via trade routes, killing an
                       estimated 75-200 million people, wiping out up to 60% of
-                      Europe's population. <br /> <br /> Third Cholera Pandemic
-                      (1852-1860): Originating in India, this pandemic spread to
+                      Europe's population. <br /> <br /> <strong>Third Cholera Pandemic
+                      (1852-1860):</strong> Originating in India, this pandemic spread to
                       Asia, Europe, North America, and Africa. It was caused by
                       the bacterium Vibrio cholerae and resulted in hundreds of
-                      thousands of deaths. <br /> <br /> Spanish Flu
-                      (1918-1919): The Spanish flu, caused by the H1N1 influenza
+                      thousands of deaths. <br /> <br /> <strong>Spanish Flu
+                      (1918-1919):</strong> The Spanish flu, caused by the H1N1 influenza
                       virus, infected about one-third of the world's population
                       and killed an estimated 50 million people worldwide. It is
                       considered one of the deadliest pandemics in history.{" "}
-                      <br /> <br /> Asian Flu (1957-1958): This influenza
+                      <br /> <br /> <strong>Asian Flu (1957-1958)</strong>: This influenza
                       pandemic was caused by the H2N2 influenza virus. It
                       originated in East Asia and spread to other parts of the
                       world, resulting in an estimated 1-2 million deaths.{" "}
-                      <br /> <br /> HIV/AIDS Pandemic (1980s-present): The
+                      <br /> <br /> <strong>HIV/AIDS Pandemic (1980s-present):</strong> The
                       HIV/AIDS pandemic, caused by the human immunodeficiency
                       virus (HIV), has resulted in approximately 32 million
                       deaths since it was first identified in the early 1980s.
                       It continues to be a major global health issue. <br />{" "}
-                      <br /> COVID-19 Pandemic (2019-present): The COVID-19
+                      <br /> <strong>COVID-19 Pandemic (2019-present):</strong> The COVID-19
                       pandemic, caused by the novel coronavirus SARS-CoV-2,
                       emerged in Wuhan, China, in late 2019. It quickly spread
                       around the world, leading to millions of deaths and
@@ -468,7 +468,7 @@ const HomePage = () => {
                 </SectionHeading>
                 {!isCollapsed.notes && (
                   <motion.div
-                    initial={{ x: "-100vw" }}
+                    initial={{ x: "100vw" }}
                     animate={{ x: 0 }}
                     transition={{ duration: 0.5 }}
                   >
@@ -514,7 +514,7 @@ const HomePage = () => {
                 </SectionHeading>
                 {!isCollapsed.mapPortal && (
                   <motion.div
-                    initial={{ x: "100vw" }}
+                    initial={{ x: "-100vw" }}
                     animate={{ x: 0 }}
                     transition={{ duration: 0.5 }}
                   >
@@ -637,7 +637,7 @@ const HomePage = () => {
               </SectionContent>
             </Section>
             <Section>
-              <SectionContent>
+              <SectionContent style={{ textAlign: "center" }}>
                 <SectionHeading onClick={() => toggleCollapse("pandemicInfo")}>
                   Pandemic Information
                 </SectionHeading>

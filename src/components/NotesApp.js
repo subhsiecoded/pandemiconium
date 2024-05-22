@@ -112,7 +112,7 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
         `https://pandemiconiummanager.azurewebsites.net/GetNotes/${userId["token"]}`
       );
       const data = await response.json();
-      console.log("Fetched Data:", data); // Log fetched data
+      //console.log("Fetched Data:", data); 
       if (Array.isArray(data) && data.length > 0) {
         setNotes(
           data.map((note) => ({
