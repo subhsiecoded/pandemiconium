@@ -349,7 +349,7 @@ function Inventory({ darkMode }) {
       });
   };
 
-   const handleListTitleChange = (event) => {
+  const handleListTitleChange = (event) => {
     setListTitle(event.target.value);
   };
 
@@ -555,7 +555,12 @@ function Inventory({ darkMode }) {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/pandemic">
-                  Info
+                  Pandemic info
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/map">
+                  Map Portal
                 </Link>
               </li>
               <li className="nav-item">

@@ -89,14 +89,14 @@ const NewsApp = ({ onLogout, darkMode }) => {
   // State variables
   const [covidNews, setCovidNews] = useState([]);
   const [vaccineNews, setVaccineNews] = useState([]);
-  const [generalNews, setGeneralNews] = useState([]); 
+  const [generalNews, setGeneralNews] = useState([]);
   const [starredArticles, setStarredArticles] = useState([]);
   const [userId, setUserId] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [showStarredArticles, setShowStarredArticles] = useState(false);
   const [covidCollapsed, setCovidCollapsed] = useState(false);
   const [vaccineCollapsed, setVaccineCollapsed] = useState(false);
-  const [generalCollapsed, setGeneralCollapsed] = useState(false); 
+  const [generalCollapsed, setGeneralCollapsed] = useState(false);
   const apiKey = "7e37076f4c10468b8ba932870b434b0b";
   const covidApiUrl = `https://newsapi.org/v2/everything?q=covid&apiKey=${apiKey}&language=en`;
   const vaccineApiUrl = `https://newsapi.org/v2/everything?q=vaccine&apiKey=${apiKey}&language=en`;
@@ -196,7 +196,7 @@ const NewsApp = ({ onLogout, darkMode }) => {
         window.location.reload();
       } else {
         displayPopupMessage("Article is already stored!");
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.reload();
         }, 1200);
       }
@@ -307,7 +307,12 @@ const NewsApp = ({ onLogout, darkMode }) => {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/pandemic">
-                  Info
+                  Pandemic info
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/map">
+                  Map Portal
                 </Link>
               </li>
               <li className="nav-item">
@@ -331,64 +336,64 @@ const NewsApp = ({ onLogout, darkMode }) => {
         </div>
       </StyledNav>
       <Container>
-      <NewsHeaderContainer darkMode={darkMode}>
-        <h1>Pandemiconium News Portal</h1>
-      </NewsHeaderContainer>
-      <div className="main-content">
-        <ToastContainer />
-        <section>
-          <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
-            <span
-              onClick={() => setCovidCollapsed(!covidCollapsed)}
-              style={{ cursor: "pointer" }}
-            >
-              Covid News {covidCollapsed ? "(Expand)" : "(Collapse)"}
-            </span>
-          </h2>
-          {!covidCollapsed && (
-            <ArticleGrid news={covidNews} onStar={handleStarArticle} />
+        <NewsHeaderContainer darkMode={darkMode}>
+          <h1>Pandemiconium News Portal</h1>
+        </NewsHeaderContainer>
+        <div className="main-content">
+          <ToastContainer />
+          <section>
+            <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
+              <span
+                onClick={() => setCovidCollapsed(!covidCollapsed)}
+                style={{ cursor: "pointer" }}
+              >
+                Covid News {covidCollapsed ? "(Expand)" : "(Collapse)"}
+              </span>
+            </h2>
+            {!covidCollapsed && (
+              <ArticleGrid news={covidNews} onStar={handleStarArticle} />
+            )}
+          </section>
+          {/* Vaccine News Section */}
+          <section>
+            <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
+              <span
+                onClick={() => setVaccineCollapsed(!vaccineCollapsed)}
+                style={{ cursor: "pointer" }}
+              >
+                Vaccine News {vaccineCollapsed ? "(Expand)" : "(Collapse)"}
+              </span>
+            </h2>
+            {!vaccineCollapsed && (
+              <ArticleGrid news={vaccineNews} onStar={handleStarArticle} />
+            )}
+          </section>
+          {/* General News Section */}
+          <section>
+            <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
+              <span
+                onClick={() => setGeneralCollapsed(!generalCollapsed)}
+                style={{ cursor: "pointer" }}
+              >
+                General News {generalCollapsed ? "(Expand)" : "(Collapse)"}
+              </span>
+            </h2>
+            {!generalCollapsed && (
+              <ArticleGrid news={generalNews} onStar={handleStarArticle} />
+            )}
+          </section>
+          <button className="sidebar-button" onClick={toggleStarredArticles} />
+          {/* Starred Articles Sidebar */}
+          {showStarredArticles && (
+            <StarredArticles
+              articles={starredArticles}
+              onUnstar={handleUnstarArticle}
+              onExpand={() => setSidebarExpanded(true)}
+              onCollapse={() => setSidebarExpanded(false)}
+              expanded={sidebarExpanded}
+            />
           )}
-        </section>
-        {/* Vaccine News Section */}
-        <section>
-          <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
-            <span
-              onClick={() => setVaccineCollapsed(!vaccineCollapsed)}
-              style={{ cursor: "pointer" }}
-            >
-              Vaccine News {vaccineCollapsed ? "(Expand)" : "(Collapse)"}
-            </span>
-          </h2>
-          {!vaccineCollapsed && (
-            <ArticleGrid news={vaccineNews} onStar={handleStarArticle} />
-          )}
-        </section>
-        {/* General News Section */}
-        <section>
-          <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
-            <span
-              onClick={() => setGeneralCollapsed(!generalCollapsed)}
-              style={{ cursor: "pointer" }}
-            >
-              General News {generalCollapsed ? "(Expand)" : "(Collapse)"}
-            </span>
-          </h2>
-          {!generalCollapsed && (
-            <ArticleGrid news={generalNews} onStar={handleStarArticle} />
-          )}
-        </section>
-        <button className="sidebar-button" onClick={toggleStarredArticles} />
-        {/* Starred Articles Sidebar */}
-        {showStarredArticles && (
-          <StarredArticles
-            articles={starredArticles}
-            onUnstar={handleUnstarArticle}
-            onExpand={() => setSidebarExpanded(true)}
-            onCollapse={() => setSidebarExpanded(false)}
-            expanded={sidebarExpanded}
-          />
-        )}
-      </div>
+        </div>
       </Container>
     </div>
   );

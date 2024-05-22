@@ -296,7 +296,12 @@ const HomePage = () => {
                 <ul className="navbar-nav">
                   <li className="nav-item">
                     <Link className="nav-link" to="/pandemic">
-                      Info
+                      Pandemic info
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/map">
+                      Map Portal
                     </Link>
                   </li>
                   <li className="nav-item">

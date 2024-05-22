@@ -255,6 +255,11 @@ const Pandemicinfo = () => {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link className="nav-link" to="/map">
+                  Map Portal
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link" to="/news">
                   News
                 </Link>
@@ -316,7 +321,7 @@ const Pandemicinfo = () => {
           )}
         </Section>
       ))}
-      <SafetyVideoSection darkMode={darkMode}/>
+      <SafetyVideoSection darkMode={darkMode} />
 
       <IndiaSituationReport />
       <VaccineDetails />

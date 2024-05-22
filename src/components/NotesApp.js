@@ -120,7 +120,7 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
             time_created: new Date(note.time_created).toISOString(), // Convert timestamp to ISO string
           }))
         );
-        // console.log("Updated Notes State:", notes); 
+        // console.log("Updated Notes State:", notes);
       }
     } catch (error) {
       console.error("Error fetching notes:", error);
@@ -234,12 +234,12 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
   const saveNote = async (newTitle, newText, newTimestamp) => {
     try {
       const requestBody = {
-        "id": token, // Use the note's time_created as the id
-        "title": newTitle,
-        "note": newText,
-        "time_created": newTimestamp,
+        id: token, // Use the note's time_created as the id
+        title: newTitle,
+        note: newText,
+        time_created: newTimestamp,
       };
-      
+
       const response = await fetch(
         "https://pandemiconiummanager.azurewebsites.net/UpdateNote",
         {
@@ -250,7 +250,7 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
           body: JSON.stringify(requestBody),
         }
       );
-  
+
       if (response.ok) {
         console.log("Note updated successfully");
         // Fetch the updated notes from the backend
@@ -261,7 +261,7 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
     } catch (error) {
       console.error("Error updating the note:", error);
     }
-  };  
+  };
 
   const displayPopupMessage = (message) => {
     toast.info(message, {
@@ -308,7 +308,12 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/pandemic">
-                  Info
+                  Pandemic info
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/map">
+                  Map Portal
                 </Link>
               </li>
               <li className="nav-item">
