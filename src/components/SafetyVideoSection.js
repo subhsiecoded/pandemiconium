@@ -65,7 +65,7 @@ const VideoDescription = styled.p`
 `;
 
 const SafetyVideoSection = ({ darkMode }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const embedCode = `<iframe width="560" height="315" src="https://www.youtube.com/embed/xVu_I6WCsto?si=ti2mKHH3Ga98payc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
 
   const toggleExpand = () => {

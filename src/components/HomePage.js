@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import dev1 from "./img/subhasish.jpg";
-import dev2 from "./img/notes.png";
+import dev2 from "./img/ranganath.jpg";
 import dev3 from "./img/muhsin.jpg";
 import dev4 from "./img/bhumika.jpg";
 import pandemicImage from "./img/pandemic.png";
@@ -9,8 +9,9 @@ import historyImage from "./img/ack.png";
 import notesImage from "./img/noteshome.png";
 import newsImage from "./img/news.png";
 import inventoryImage from "./img/inventory.png";
+import mapPortalGif from "./img/mapportal.gif";
 import styled, { css, createGlobalStyle } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoWatermark from "./img/logoalpha.png";
 import logo from "./img/logonav.png";
 import CurrentDateTime from "./CurrentDateTime";
@@ -198,6 +199,8 @@ const HomePage = () => {
     };
   }, []);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const toastMessages = [
       {
@@ -240,10 +243,10 @@ const HomePage = () => {
     }, 5000); // 5 seconds after the user views the home page
 
     return () => clearInterval(interval);
-  }, [notificationsShown]);
+  }, [notificationsShown, navigate]);
 
   const navigateToPage = (path) => {
-    window.location.href = path;
+    navigate(path);
   };
 
   const scrollToTop = () => {
@@ -504,6 +507,49 @@ const HomePage = () => {
                 )}
               </SectionContent>
             </Section>
+            <Section>
+              <SectionContent>
+                <SectionHeading onClick={() => toggleCollapse("mapPortal")}>
+                  Map Portal
+                </SectionHeading>
+                {!isCollapsed.mapPortal && (
+                  <motion.div
+                    initial={{ x: "100vw" }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <p>
+                      This component shows users the nearest hospitals and
+                      healthcare facilities around them. Users can star and
+                      unstar any healthcare facilities for easier access.
+                      Clicking a starred location in the sidebar will redirect
+                      users to its location.
+                      <br />
+                      <strong>Benefits of this feature:</strong>
+                      <ul>
+                        <li>
+                          Quick access to nearby healthcare facilities in case
+                          of emergencies.
+                        </li>
+                        <li>
+                          Ability to bookmark and prioritize favorite or most
+                          frequently visited locations.
+                        </li>
+                        <li>
+                          Effortless navigation to healthcare facilities with a
+                          single click.
+                        </li>
+                        <li>
+                          Enhanced safety by knowing the closest healthcare
+                          options.
+                        </li>
+                      </ul>
+                    </p>
+                  </motion.div>
+                )}
+              </SectionContent>
+              <SectionImage src={mapPortalGif} alt="Map Portal" />
+            </Section>
 
             <Section>
               <SectionContent>
@@ -512,7 +558,7 @@ const HomePage = () => {
                 </SectionHeading>
                 {!isCollapsed.news && (
                   <motion.div
-                    initial={{ x: "100vw" }}
+                    initial={{ x: "-100vw" }}
                     animate={{ x: 0 }}
                     transition={{ duration: 0.5 }}
                   >
@@ -559,7 +605,7 @@ const HomePage = () => {
                 </SectionHeading>
                 {!isCollapsed.inventory && (
                   <motion.div
-                    initial={{ x: "-100vw" }}
+                    initial={{ x: "100vw" }}
                     animate={{ x: 0 }}
                     transition={{ duration: 0.5 }}
                   >
@@ -589,6 +635,26 @@ const HomePage = () => {
                   </motion.div>
                 )}
               </SectionContent>
+            </Section>
+            <Section>
+              <SectionContent>
+                <SectionHeading onClick={() => toggleCollapse("pandemicInfo")}>
+                  Pandemic Information
+                </SectionHeading>
+                {!isCollapsed.pandemicInfo && (
+                  <motion.div
+                    initial={{ x: "-100vw" }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <p>
+                      Provides users with information on how to prepare for a
+                      pandemic and stay safe during and after the event.
+                    </p>
+                  </motion.div>
+                )}
+              </SectionContent>
+              <SectionImage src={pandemicImage} alt="Pandemic Information" />
             </Section>
 
             <AboutSection id="aboutSection">
