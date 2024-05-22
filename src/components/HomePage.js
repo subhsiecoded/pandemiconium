@@ -10,7 +10,7 @@ import notesImage from "./img/noteshome.png";
 import newsImage from "./img/news.png";
 import inventoryImage from "./img/inventory.png";
 import mapPortalGif from "./img/mapportal.gif";
-import styled, { css, createGlobalStyle } from "styled-components";
+import styled, { css } from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import logoWatermark from "./img/logoalpha.png";
 import logo from "./img/logonav.png";
@@ -20,6 +20,7 @@ import Custombodyfont from "./fonts/Kreasi-YqEjO.otf";
 import HomePageHeader from "./headers/HomePageHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BackToTop from '@mui/icons-material/ArrowUpward';
 
 const Section = styled.section`
   margin: 40px;
@@ -87,7 +88,25 @@ const DeveloperTile = styled.div`
   text-align: center;
   margin: 20px;
   cursor: pointer;
-  width: calc(25% - 40px); /* Adjust the width as needed */
+  width: calc(25% - 40px);
+  height: 280px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    animation: shadowAnimation 0.3s infinite alternate ease;
+  }
+
+  @keyframes shadowAnimation {
+    0% {
+      box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    }
+    100% {
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    }
+  }
 `;
 
 const DeveloperContainer = styled.div`
@@ -97,9 +116,18 @@ const DeveloperContainer = styled.div`
   margin: 0 -20px; /* Adjust the negative margin to remove extra space */
 `;
 
-const DeveloperImage = styled.img`
-  width: 280px; /* Increase the width */
-  height: 280px; /* Increase the height */
+const DeveloperContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+`;
+
+const DeveloperTileImage = styled.img`
+  width: 200px; /* Adjust image width */
+  height: 200px; /* Adjust image height */
   border-radius: 50%; /* Make it circular */
   object-fit: cover;
 `;
@@ -116,6 +144,13 @@ const DeveloperName = styled.h3`
   font-size: 22px;
   font-weight: bold;
   font-family: "CustomBodyFont", cursive;
+`;
+
+const DeveloperRole = styled.p`
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-family: "Comic Sans MS", cursive;
 `;
 const StyledNav = styled.nav`
   background-color: #343a40;
@@ -150,12 +185,6 @@ const StyledNav = styled.nav`
   .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   }
-`;
-
-const DeveloperRole = styled.p`
-  margin-top: 14px;
-  font-size: 18px;
-  font-family: "Comic Sans MS", cursive;
 `;
 
 const HomePage = () => {
@@ -406,53 +435,58 @@ const HomePage = () => {
                       The history of pandemics is extensive and spans thousands
                       of years. Here is an overview of some of the major
                       pandemics that have occurred throughout history: <br />{" "}
-                      <br /> <strong>Plague of Athens (430-426 BCE):</strong> This epidemic
-                      struck during the Peloponnesian War and is believed to
-                      have been caused by either typhoid fever or a form of the
-                      plague. It resulted in the deaths of a significant portion
-                      of the population of Athens, including its leader,
-                      Pericles. <br /> <br /> <strong>Antonine Plague (165-180 CE):</strong> This
+                      <br /> <strong>Plague of Athens (430-426 BCE):</strong>{" "}
+                      This epidemic struck during the Peloponnesian War and is
+                      believed to have been caused by either typhoid fever or a
+                      form of the plague. It resulted in the deaths of a
+                      significant portion of the population of Athens, including
+                      its leader, Pericles. <br /> <br />{" "}
+                      <strong>Antonine Plague (165-180 CE):</strong> This
                       outbreak, during the reign of Roman Emperor Marcus
                       Aurelius, is thought to have been either smallpox or
                       measles. It spread throughout the Roman Empire and is
-                      estimated to have killed millions. <br /> <br /> <strong>Plague of
-                      Justinian (541-542 CE):</strong> Named after the Byzantine Emperor
-                      Justinian I, this pandemic was caused by the bubonic
-                      plague. It is considered one of the deadliest pandemics in
-                      history, killing an estimated 25-50 million people and
-                      contributing to the decline of the Byzantine Empire.{" "}
-                      <br /> <br /> <strong>Black Death (1347-1351):</strong> The Black Death,
+                      estimated to have killed millions. <br /> <br />{" "}
+                      <strong>Plague of Justinian (541-542 CE):</strong> Named
+                      after the Byzantine Emperor Justinian I, this pandemic was
+                      caused by the bubonic plague. It is considered one of the
+                      deadliest pandemics in history, killing an estimated 25-50
+                      million people and contributing to the decline of the
+                      Byzantine Empire. <br /> <br />{" "}
+                      <strong>Black Death (1347-1351):</strong> The Black Death,
                       caused by the bacterium Yersinia pestis, is perhaps the
                       most infamous pandemic in history. It originated in Asia
                       and spread to Europe via trade routes, killing an
                       estimated 75-200 million people, wiping out up to 60% of
-                      Europe's population. <br /> <br /> <strong>Third Cholera Pandemic
-                      (1852-1860):</strong> Originating in India, this pandemic spread to
-                      Asia, Europe, North America, and Africa. It was caused by
-                      the bacterium Vibrio cholerae and resulted in hundreds of
-                      thousands of deaths. <br /> <br /> <strong>Spanish Flu
-                      (1918-1919):</strong> The Spanish flu, caused by the H1N1 influenza
-                      virus, infected about one-third of the world's population
-                      and killed an estimated 50 million people worldwide. It is
-                      considered one of the deadliest pandemics in history.{" "}
-                      <br /> <br /> <strong>Asian Flu (1957-1958)</strong>: This influenza
+                      Europe's population. <br /> <br />{" "}
+                      <strong>Third Cholera Pandemic (1852-1860):</strong>{" "}
+                      Originating in India, this pandemic spread to Asia,
+                      Europe, North America, and Africa. It was caused by the
+                      bacterium Vibrio cholerae and resulted in hundreds of
+                      thousands of deaths. <br /> <br />{" "}
+                      <strong>Spanish Flu (1918-1919):</strong> The Spanish flu,
+                      caused by the H1N1 influenza virus, infected about
+                      one-third of the world's population and killed an
+                      estimated 50 million people worldwide. It is considered
+                      one of the deadliest pandemics in history. <br /> <br />{" "}
+                      <strong>Asian Flu (1957-1958)</strong>: This influenza
                       pandemic was caused by the H2N2 influenza virus. It
                       originated in East Asia and spread to other parts of the
                       world, resulting in an estimated 1-2 million deaths.{" "}
-                      <br /> <br /> <strong>HIV/AIDS Pandemic (1980s-present):</strong> The
+                      <br /> <br />{" "}
+                      <strong>HIV/AIDS Pandemic (1980s-present):</strong> The
                       HIV/AIDS pandemic, caused by the human immunodeficiency
                       virus (HIV), has resulted in approximately 32 million
                       deaths since it was first identified in the early 1980s.
                       It continues to be a major global health issue. <br />{" "}
-                      <br /> <strong>COVID-19 Pandemic (2019-present):</strong> The COVID-19
-                      pandemic, caused by the novel coronavirus SARS-CoV-2,
-                      emerged in Wuhan, China, in late 2019. It quickly spread
-                      around the world, leading to millions of deaths and
-                      causing widespread social, economic, and political
-                      disruption. These are just a few examples of pandemics
-                      throughout history. Each has had profound impacts on human
-                      populations and societies, shaping the course of history
-                      in significant ways.
+                      <br /> <strong>COVID-19 Pandemic (2019-present):</strong>{" "}
+                      The COVID-19 pandemic, caused by the novel coronavirus
+                      SARS-CoV-2, emerged in Wuhan, China, in late 2019. It
+                      quickly spread around the world, leading to millions of
+                      deaths and causing widespread social, economic, and
+                      political disruption. These are just a few examples of
+                      pandemics throughout history. Each has had profound
+                      impacts on human populations and societies, shaping the
+                      course of history in significant ways.
                     </p>
                   </motion.div>
                 )}
@@ -661,28 +695,38 @@ const HomePage = () => {
               <SectionHeading>About Us</SectionHeading>
               <DeveloperContainer>
                 <DeveloperTile>
-                  <DeveloperImage src={dev1} alt="Developer 1" />
-                  <DeveloperName>Subhasish Das</DeveloperName>
-                  <DeveloperRole>Front-end Developer.</DeveloperRole>
+                  <DeveloperContent>
+                    <DeveloperTileImage src={dev1} alt="Developer 1" />
+                    <DeveloperName>Subhasish Das</DeveloperName>
+                    <DeveloperRole>Front-end Developer.</DeveloperRole>
+                  </DeveloperContent>
                 </DeveloperTile>
                 <DeveloperTile>
-                  <DeveloperImage src={dev2} alt="Developer 2" />
-                  <DeveloperName>Ranganath V.</DeveloperName>
-                  <DeveloperRole>
-                    Backend Designer and API developer.
-                  </DeveloperRole>
+                  <DeveloperContent>
+                    <DeveloperTileImage src={dev2} alt="Developer 2" />
+                    <DeveloperName>Ranganath V.</DeveloperName>
+                    <DeveloperRole>
+                      Backend Designer and API developer.
+                    </DeveloperRole>
+                  </DeveloperContent>
                 </DeveloperTile>
                 <DeveloperTile>
-                  <DeveloperImage src={dev3} alt="Developer 3" />
-                  <DeveloperName>Muhsin Bashir</DeveloperName>
-                  <DeveloperRole>
-                    Head of Artificial Intelligence and Machine learning.
-                  </DeveloperRole>
+                  <DeveloperContent>
+                    <DeveloperTileImage src={dev3} alt="Developer 3" />
+                    <DeveloperName>Muhsin Bashir</DeveloperName>
+                    <DeveloperRole>
+                      Head of Research and Analysis.
+                    </DeveloperRole>
+                  </DeveloperContent>
                 </DeveloperTile>
                 <DeveloperTile>
-                  <DeveloperImage src={dev4} alt="Developer 4" />
-                  <DeveloperName>Bhumika Raj</DeveloperName>
-                  <DeveloperRole>Head of Research and Analysis.</DeveloperRole>
+                  <DeveloperContent>
+                    <DeveloperTileImage src={dev4} alt="Developer 4" />
+                    <DeveloperName>Bhumika Raj</DeveloperName>
+                    <DeveloperRole>
+                      Head of publications.
+                    </DeveloperRole>
+                  </DeveloperContent>
                 </DeveloperTile>
               </DeveloperContainer>
             </AboutSection>
@@ -693,7 +737,7 @@ const HomePage = () => {
               onClick={scrollToTop}
               style={{ position: "fixed", bottom: "20px", right: "20px" }}
             >
-              Back to Top
+              <BackToTop />
             </button>
           )}
         </Container>
