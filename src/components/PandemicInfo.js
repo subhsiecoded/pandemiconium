@@ -29,6 +29,39 @@ const Container = styled.div`
     `}
 `;
 
+const BackToTopButton = styled.button`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+  
+  /* Bootstrap primary button styles */
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+  }
+`;
+
 const StyledNav = styled.nav`
   background-color: #343a40;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -111,7 +144,9 @@ const SectionImage = styled(motion.img)`
 const Pandemicinfo = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState([0, 1, 2]); // Initial state to expand all sections
-
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -326,6 +361,7 @@ const Pandemicinfo = () => {
       <IndiaSituationReport />
       <VaccineDetails />
       <PandemicHelpline darkMode={darkMode} />
+      <BackToTopButton onClick={scrollToTop}>Back to Top</BackToTopButton>
     </Container>
   );
 };
