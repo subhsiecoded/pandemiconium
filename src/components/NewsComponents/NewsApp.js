@@ -97,10 +97,7 @@ const NewsApp = ({ onLogout, darkMode }) => {
   const [covidCollapsed, setCovidCollapsed] = useState(false);
   const [vaccineCollapsed, setVaccineCollapsed] = useState(false);
   const [generalCollapsed, setGeneralCollapsed] = useState(false);
-  const apiKey = "7e37076f4c10468b8ba932870b434b0b";
-  const covidApiUrl = `https://newsapi.org/v2/everything?q=covid&apiKey=${apiKey}&language=en`;
-  const vaccineApiUrl = `https://newsapi.org/v2/everything?q=vaccine&apiKey=${apiKey}&language=en`;
-  const generalApiUrl = `https://newsapi.org/v2/everything?q=healthcare+India&apiKey=${apiKey}&language=en`;
+  const proxyUrl = "http://localhost:3001/news"; // Replace with your deployed proxy server URL
 
   // useEffect hook to fetch data
   useEffect(() => {
@@ -127,21 +124,7 @@ const NewsApp = ({ onLogout, darkMode }) => {
   // Function to fetch news based on category
   const fetchNews = async (category) => {
     try {
-      let apiUrl;
-      switch (category) {
-        case "covid":
-          apiUrl = covidApiUrl;
-          break;
-        case "vaccine":
-          apiUrl = vaccineApiUrl;
-          break;
-        case "general":
-          apiUrl = generalApiUrl;
-          break;
-        default:
-          return;
-      }
-      const response = await fetch(apiUrl);
+      const response = await fetch(`${proxyUrl}?category=${category}`);
       const data = await response.json();
       if (category === "covid") {
         setCovidNews(data.articles);
