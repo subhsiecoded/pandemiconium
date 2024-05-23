@@ -12,7 +12,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import styled from "styled-components";
-import MapHeader from "./headers/MapHeader"; // Adjust the import path as needed
+import MapHeader from "./headers/MapHeader"; 
+import NearbyLocationsSidebar from "./NearbyHospitalsSidebar";
 
 const StyledNav = styled.nav`
   background-color: #343a40;
@@ -82,6 +83,7 @@ const SidebarItem = styled.div`
   border-bottom: 1px solid #ccc;
   transition: background-color 0.3s ease;
   cursor: pointer;
+  font-family: "Comic Sans MS", cursive; 
 
   &:hover {
     background-color: #f0f0f0;
@@ -95,6 +97,24 @@ const SidebarToggleButton = styled.button`
   z-index: 2;
 `;
 
+const NearbySidebarToggleButton = styled.button`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 2;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 const NavButton = styled.button`
   position: absolute;
   bottom: 10px;
@@ -105,6 +125,7 @@ const NavButton = styled.button`
 const Map = ({ darkMode }) => {
   const [starredLocations, setStarredLocations] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [nearbySidebarOpen, setNearbySidebarOpen] = useState(false);
   const [userId, setUserId] = useState(null);
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
@@ -221,6 +242,8 @@ const Map = ({ darkMode }) => {
       "medical",
       "medicine",
       "pharmacy",
+      "pharma",
+      "clinic",
       "specialty",
       "dental",
       "speciality",
@@ -475,7 +498,7 @@ const Map = ({ darkMode }) => {
           className="btn btn-primary"
           onClick={toggleSidebar}
         >
-          {sidebarOpen ? "<<" : ">>"}
+          {sidebarOpen ? ">>" : "<<"}
         </SidebarToggleButton>
         <Sidebar sidebarOpen={sidebarOpen} className="custom-scrollbar">
           <div
@@ -509,6 +532,17 @@ const Map = ({ darkMode }) => {
             )}
           </div>
         </Sidebar>
+        <NearbySidebarToggleButton
+        className="btn btn-primary"
+        onClick={() => setNearbySidebarOpen(!nearbySidebarOpen)}
+      >
+        {nearbySidebarOpen ? "<<" : ">>"}
+      </NearbySidebarToggleButton>
+      <NearbyLocationsSidebar
+        mapRef={mapRef}
+        sidebarOpen={nearbySidebarOpen}
+      />
+        
         <ToastContainer />
       </div>
     </>
