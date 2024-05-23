@@ -41,14 +41,15 @@ const NearbyLocationItem = styled.div`
   border-bottom: 1px solid #ccc;
   transition: background-color 0.3s ease;
   cursor: pointer;
-  font-family: "Comic Sans MS", cursive; /* Comic Sans font */
+  font-family: "Comic Sans MS", cursive; 
   &:hover {
     background-color: #f0f0f0;
   }
 `;
 
 const Header = styled.h3`
-  font-weight: bold; /* Render header as bold */
+  font-weight: bold;
+  color: black;
 `;
 
 const NearbyLocationsSidebar = ({ mapRef, sidebarOpen }) => {
