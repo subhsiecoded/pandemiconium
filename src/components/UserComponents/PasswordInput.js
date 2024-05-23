@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import showPasswordIcon from './img/show-password.png';
-import hidePasswordIcon from './img/hide-password.png';
+import showPasswordIcon from '../img/show-password.png';
+import hidePasswordIcon from '../img/hide-password.png';
 
 const PasswordInputContainer = styled.div`
   position: relative;

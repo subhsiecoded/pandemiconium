@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import logoWatermark from "./img/logo.png";
+import logoWatermark from "../img/logo.png";
 import { useNavigate } from "react-router-dom";
 import PasswordInput from "./PasswordInput";
 

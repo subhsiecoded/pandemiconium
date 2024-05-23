@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ArticleGrid from "./ArticleGrid";
 import StarredArticles from "./StarredArticles";
-import CurrentDateTime from "./CurrentDateTime";
+import CurrentDateTime from "../CurrentDateTime";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles.css";
-import logoWatermark from "./img/newsbackground.png";
-import logo from "./img/logonav.png";
+import "../../styles.css";
+import logoWatermark from "../img/newsbackground.png";
+import logo from "../img/logonav.png";
 import styled from "styled-components";
-import Customheaderfont from "./fonts/AGoblinAppears-o2aV.ttf";
+import Customheaderfont from "../fonts/AGoblinAppears-o2aV.ttf";
 
 const NewsHeaderContainer = styled.h2`
   @font-face {

@@ -3,21 +3,20 @@ import { Routes, Route, Link, Navigate } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./components/HomePage";
-import Signup from "./components/Signup";
+import Signup from "./components/UserComponents/Signup";
 import Pandemicinfo from "./components/PandemicInfo";
-import Login from "./components/Login";
-import ForgotPassword from "./components/ForgotPassword";
-import NewsApp from "./components/NewsApp";
+import Login from "./components/UserComponents/Login";
+import ForgotPassword from "./components/UserComponents/ForgotPassword";
+import NewsApp from "./components/NewsComponents/NewsApp";
 import ReminderApp from "./components/ReminderApp";
-import NotesApp from "./components/NotesApp";
-import Inventory from "./components/Inventory";
-import { UserIdProvider } from "./components/UserIdContext";
+import NotesApp from "./components/NoteComponents/NotesApp";
+import Inventory from "./components/InventoryComponents/Inventory";
+import { UserIdProvider } from "./components/UserComponents/UserIdContext";
 import logoWatermark from "./components/img/logo.png";
 import moonIcon from "./components/img/moon.png";
 import sunIcon from "./components/img/sun.png";
 import CustomCursor from "./components/CustomCursor";
-
-import Map from "./components/Map";
+import Map from "./components/MapComponents/Map";
 
 import "./styles.css";
 const GlobalStyle = createGlobalStyle`

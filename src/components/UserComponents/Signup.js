@@ -1,8 +1,8 @@
 // Signup.js
 import React, { useState } from "react";
 import styled from "styled-components";
-import logoWatermark from "./img/logo.png";
-import logonav from "./img/logonav.png";
+import logoWatermark from "../img/logo.png";
+import logonav from "../img/logonav.png";
 
 const Container = styled.div`
   color: ${(props) => (props.darkMode ? "white" : "black")};

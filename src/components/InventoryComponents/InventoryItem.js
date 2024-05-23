@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import "./css/Inventory.css";
+import "../css/Inventory.css";
 
 function InventoryItem({ item, removeItem, updateItem }) {
   const [isEditing, setIsEditing] = useState(false);

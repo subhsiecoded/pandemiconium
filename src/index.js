@@ -6,7 +6,7 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import { UserIdProvider } from './components/UserIdContext'; 
+import { UserIdProvider } from './components/UserComponents/UserIdContext'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

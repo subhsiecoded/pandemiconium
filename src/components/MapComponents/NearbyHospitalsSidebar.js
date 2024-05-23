@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import mapboxgl from "mapbox-gl";
-import "./css/CustomScrollbar.css";
+import "../css/CustomScrollbar.css";
 
 const NearbyLocationsSidebarContainer = styled.div`
   position: fixed;
