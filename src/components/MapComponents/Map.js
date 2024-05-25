@@ -12,8 +12,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import styled from "styled-components";
-import MapHeader from "../headers/MapHeader"; 
+import MapHeader from "../headers/MapHeader";
 import NearbyLocationsSidebar from "./NearbyHospitalsSidebar";
+
+import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
+import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 
 const StyledNav = styled.nav`
   background-color: #343a40;
@@ -70,7 +73,7 @@ const Sidebar = styled.div`
   height: calc(100vh - 200px);
   background-color: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
-  z-index: 1;
+  z-index: 2;
   display: ${(props) => (props.sidebarOpen ? "block" : "none")};
   overflow-y: auto;
   scrollbar-width: thin;
@@ -83,13 +86,30 @@ const SidebarItem = styled.div`
   border-bottom: 1px solid #ccc;
   transition: background-color 0.3s ease;
   cursor: pointer;
-  font-family: "Comic Sans MS", cursive; 
+  font-family: "Comic Sans MS", cursive;
 
   &:hover {
     background-color: #f0f0f0;
   }
 `;
+const ToggleButton = styled.button`
+  position: fixed;
+  top: 100px;
+  left: 20px;
+  transform: translateY(-50%);
+  z-index: 2;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 const SidebarToggleButton = styled.button`
   position: absolute;
   bottom: 10px;
@@ -102,7 +122,7 @@ const NearbySidebarToggleButton = styled.button`
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 4;
   background-color: #007bff;
   color: white;
   border: none;
@@ -131,14 +151,37 @@ const Map = ({ darkMode }) => {
   const mapRef = useRef(null);
   const geocoderRef = useRef(null);
   const starMarkers = useRef({});
+  const directionsRef = useRef(null);
+  const [mapStyle, setMapStyle] = useState(
+    darkMode
+      ? "mapbox://styles/mapbox/dark-v10"
+      : "mapbox://styles/mapbox/streets-v11"
+  );
+
+  const toggleMapStyle = () => {
+    setMapStyle((prevStyle) =>
+      prevStyle === "mapbox://styles/mapbox/dark-v10"
+        ? "mapbox://styles/mapbox/streets-v11"
+        : "mapbox://styles/mapbox/dark-v10"
+    );
+  };
 
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: mapStyle,
       center: [-96, 37.8],
       zoom: 3,
     });
+
+    const directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken,
+      unit: "metric",
+      profile: "mapbox/driving",
+    });
+
+    map.addControl(directions, "top-left");
+    directionsRef.current = directions;
 
     const storedUserId = JSON.parse(localStorage.getItem("userId"));
     const newUserId = storedUserId?.token;
@@ -158,7 +201,6 @@ const Map = ({ darkMode }) => {
             return response.json();
           })
           .then((data) => {
-            // Split the coordinates string and assign lng and lat directly
             const formattedLocations = data.map((location) => {
               const [lng, lat] = location.coordinates.split(",");
               return {
@@ -228,7 +270,23 @@ const Map = ({ darkMode }) => {
       Object.values(starMarkers.current).forEach((marker) => marker.remove());
       map.remove();
     };
-  }, [userId, starredLocations]);
+  }, [userId, starredLocations, mapStyle]);
+
+  const navigateToLocation = (coordinates) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const userLocation = [longitude, latitude];
+        const destination = [coordinates.lng, coordinates.lat];
+
+        directionsRef.current.setOrigin(userLocation);
+        directionsRef.current.setDestination(destination);
+      },
+      (error) => {
+        console.error("Error getting location:", error);
+      }
+    );
+  };
 
   const isHealthcareFacility = (locationName) => {
     if (!locationName) {
@@ -485,7 +543,17 @@ const Map = ({ darkMode }) => {
           <CurrentDateTime />
         </div>
       </StyledNav>
+      <NearbyLocationsSidebar
+          mapRef={mapRef}
+          sidebarOpen={nearbySidebarOpen}
+        />
       <div>
+        <ToggleButton onClick={toggleMapStyle}>
+          {mapStyle === "mapbox://styles/mapbox/dark-v10"
+            ? "Streets"
+            : "Dark Mode"}
+        </ToggleButton>
+       
         <MapHeader darkMode={darkMode} />
         <MapContainer ref={mapContainerRef} />
         <NavButton
@@ -519,9 +587,16 @@ const Map = ({ darkMode }) => {
                   </p>
                   <button
                     className="btn btn-primary"
+                    style={{ marginRight: "10px" }}
                     onClick={() => unstarLocation(index)}
                   >
-                    Unstar Location
+                    Unstar
+                  </button>
+                  <button
+                    className="btn btn-info mr-4"
+                    onClick={() => navigateToLocation(location.coordinates)}
+                  >
+                    Navigate
                   </button>
                 </SidebarItem>
               ))
@@ -533,16 +608,13 @@ const Map = ({ darkMode }) => {
           </div>
         </Sidebar>
         <NearbySidebarToggleButton
-        className="btn btn-primary"
-        onClick={() => setNearbySidebarOpen(!nearbySidebarOpen)}
-      >
-        {nearbySidebarOpen ? "<<" : ">>"}
-      </NearbySidebarToggleButton>
-      <NearbyLocationsSidebar
-        mapRef={mapRef}
-        sidebarOpen={nearbySidebarOpen}
-      />
+          className="btn btn-primary"
+          onClick={() => setNearbySidebarOpen(!nearbySidebarOpen)}
+        >
+          {nearbySidebarOpen ? "<<" : ">>"}
+        </NearbySidebarToggleButton>
         
+
         <ToastContainer />
       </div>
     </>

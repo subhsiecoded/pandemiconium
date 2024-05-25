@@ -11,7 +11,7 @@ const NearbyLocationsSidebarContainer = styled.div`
   height: calc(100vh - 200px);
   background-color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-  z-index: 1;
+  z-index: 3;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: dark gray transparent;
