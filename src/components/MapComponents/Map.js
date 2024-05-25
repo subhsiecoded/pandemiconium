@@ -398,6 +398,7 @@ const Map = ({ darkMode }) => {
               starLocation(location);
               toast.dismiss(toastId);
             }}
+            style={{ marginRight: "10px" }}
           >
             Yes
           </button>
@@ -543,17 +544,14 @@ const Map = ({ darkMode }) => {
           <CurrentDateTime />
         </div>
       </StyledNav>
-      <NearbyLocationsSidebar
-          mapRef={mapRef}
-          sidebarOpen={nearbySidebarOpen}
-        />
+      <NearbyLocationsSidebar mapRef={mapRef} sidebarOpen={nearbySidebarOpen} />
       <div>
         <ToggleButton onClick={toggleMapStyle}>
           {mapStyle === "mapbox://styles/mapbox/dark-v10"
-            ? "Streets"
-            : "Dark Mode"}
+            ? "Streets Map View"
+            : "Dark Map View"}
         </ToggleButton>
-       
+
         <MapHeader darkMode={darkMode} />
         <MapContainer ref={mapContainerRef} />
         <NavButton
@@ -613,7 +611,6 @@ const Map = ({ darkMode }) => {
         >
           {nearbySidebarOpen ? "<<" : ">>"}
         </NearbySidebarToggleButton>
-        
 
         <ToastContainer />
       </div>
