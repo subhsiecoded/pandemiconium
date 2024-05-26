@@ -1,6 +1,5 @@
+// Signup.js
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import logoWatermark from "../img/logo.png";
 import logonav from "../img/logonav.png";
@@ -28,7 +27,6 @@ const FormContainer = styled.div`
   color: ${(props) => (props.darkMode ? "#fff" : "#222")};
   /* Text color */
 `;
-
 const VirusIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -45,6 +43,7 @@ const VirusIcon = () => (
 const Signup = ({ onSignup, darkMode }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [userId, setUserId] = useState(null); // State to store user ID
 
   const handleSignup = async (e) => {
@@ -61,67 +60,88 @@ const Signup = ({ onSignup, darkMode }) => {
         }
       );
 
-      // Try to parse the response as JSON
-      const responseData = await response.json();
+      // Check if the response is ok
+      if (!response.ok) {
+        console.log("Server response:", response);
+        const errorData = await response.text(); // Get the response body
+        console.error("Signup failed. Server response:", errorData);
+        setError("Signup failed. Please try again.");
+        return;
+      }
 
-      if (responseData.token) {
-        const userId = responseData.userId;
+      // Check if response body is empty
+      const responseData = await response.text();
+      if (!responseData) {
+        console.error("Signup failed. Empty response.");
+        setError("Signup failed. Please try again.");
+        return;
+      }
+
+      // Try to parse the response as JSON
+      let data;
+      try {
+        data = JSON.parse(responseData);
+      } catch (error) {
+        console.error("Error parsing server response:", error);
+        setError("An error occurred while parsing the server response.");
+        return;
+      }
+
+      if (data.token) {
+        const userId = data.userId;
         console.log("Signup successful! UserID:", userId);
-        console.log("JWT Token:", responseData.token); // Logging JWT Token
+        console.log("JWT Token:", data.token); // Logging JWT Token
         setUserId(userId);
         localStorage.setItem("userId", userId);
-        toast.success("Signup successful. Please login.");
       } else {
         console.error("Signup failed. No token received.");
-        toast.error("Signup failed. Please try again.");
+        setError("Signup failed. Please try again.");
       }
     } catch (error) {
       console.error("Error during signup:", error);
-      toast.error("An error occurred during signup");
+      setError("An error occurred during signup");
     }
   };
 
   return (
-    <>
-      <Container darkMode={darkMode}>
-        <FormContainer darkMode={darkMode}>
-          <h2>Signup</h2>
-          <form onSubmit={handleSignup}>
-            <div className="mb-3">
-              <label htmlFor="exampleInputEmail1" className="form-label">
-                Email
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputEmail1"
-                placeholder="Enter your email"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="exampleInputPassword1"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              <VirusIcon style={{ marginRight: "5px" }} />
-              Signup
-            </button>
-          </form>
-        </FormContainer>
-      </Container>
-      <ToastContainer />
-    </>
+    <Container darkMode={darkMode}>
+      <FormContainer darkMode={darkMode}>
+        <h2>Signup</h2>
+        <form onSubmit={handleSignup}>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Email
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputEmail1"
+              placeholder="Enter your email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            <VirusIcon style={{ marginRight: "5px" }} />
+            Signup
+          </button>
+        </form>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </FormContainer>
+    </Container>
   );
 };
 
