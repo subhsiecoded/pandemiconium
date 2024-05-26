@@ -72,8 +72,6 @@ function InventoryItem({ item, removeItem, updateItem }) {
           <p>
             Threshold: {item.threshold} {item.unit}
           </p>
-          <button onClick={handleEditClick}>Edit</button>
-          <button onClick={handleRemoveClick}>Remove</button>{" "}
         </div>
       )}
     </div>

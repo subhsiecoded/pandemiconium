@@ -70,13 +70,13 @@ const SectionContent = styled.div`
   line-height: 1.6;
   flex: 1;
   font-family: "Comic-Sans MS", cursive;
-  font-size: 24px; /* Increase the font size */
+  font-size: 24px; 
 `;
 
 const SectionImage = styled.img`
   width: 550px;
   height: 350px;
-  border-radius: 10%; /* Renders the image as a circle */
+  border-radius: 10%; 
   object-fit: cover;
 `;
 

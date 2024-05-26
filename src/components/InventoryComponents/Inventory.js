@@ -126,13 +126,6 @@ const ExpandCollapseButton = styled.span`
   transition: transform 0.3s ease;
 `;
 
-const EditButton = styled.button`
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  padding: 5px 10px;
-`;
-
 const displayPopupMessage = (message) => {
   toast.info(message, {
     autoClose: 2000,
@@ -659,11 +652,6 @@ function Inventory({ darkMode }) {
                               Threshold: {item.threshold} {item.unit}
                             </p>
                           </div>
-                          <EditButton
-                            onClick={() => handleEditItem(list.id, item.id)}
-                          >
-                            Edit
-                          </EditButton>
                           <button
                             type="button"
                             className="btn btn-secondary"

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
 const DateTimeContainer = styled.div`
   display: flex;
@@ -7,19 +7,23 @@ const DateTimeContainer = styled.div`
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   font-weight: 300;
   padding: 10px;
   border-radius: 8px;
   margin-right: 80px;
+  font-family: "Comic-Sans MS", cursive;
+  font-size: 18px;
 `;
 
 const TimeDisplay = styled.div`
-  font-size: 12px;
+  font-family: "Comic-Sans MS", cursive;
+  font-size: 14px;
 `;
 
 const DateDisplay = styled.div`
-  font-size: 12px;
+  font-family: "Comic-Sans MS", cursive;
+  font-size: 14px;
 `;
 
 const CurrentDateTime = () => {
@@ -34,12 +38,17 @@ const CurrentDateTime = () => {
   }, []);
 
   const formatTime = (date) => {
-    const options = { hour: 'numeric', minute: 'numeric' };
+    const options = { hour: "numeric", minute: "numeric" };
     return date.toLocaleString(undefined, options);
   };
 
   const formatDate = (date) => {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
     return date.toLocaleString(undefined, options);
   };
 
