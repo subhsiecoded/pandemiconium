@@ -13,6 +13,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import InventoryHeader from "../headers/InventoryHeader";
 
 const Container = styled.div`
   color: ${(props) => (props.darkMode ? "white" : "black")};
@@ -579,6 +580,7 @@ function Inventory({ darkMode }) {
         </div>
       </StyledNav>
       <Container darkMode={darkMode}>
+        <InventoryHeader darkMode={darkMode} />
         <div style={{ textAlign: "center", margin: "20px 0" }}>
           <SearchBox value={searchQuery} onChange={handleSearchChange} />
         </div>
