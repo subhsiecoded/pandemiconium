@@ -18,13 +18,14 @@ const Container = styled.div`
   color: ${(props) => (props.darkMode ? "white" : "black")};
   background-image: url(${logoWatermark}); /* Static image */
   background-repeat: repeat;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   padding-top: 50px;
-  /* Animation for the background */
+  background-position: center;
+  background-attachment: fixed;
   animation: animateBackground 15s linear infinite;
 
   @keyframes animateBackground {

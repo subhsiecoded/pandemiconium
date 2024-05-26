@@ -172,6 +172,7 @@ const Map = ({ darkMode }) => {
       style: mapStyle,
       center: [-96, 37.8],
       zoom: 3,
+      attributionControl: false,
     });
 
     const directions = new MapboxDirections({
@@ -188,7 +189,7 @@ const Map = ({ darkMode }) => {
 
     if (newUserId !== userId) {
       setUserId(newUserId);
-      console.log(newUserId);
+      // console.log(newUserId);
 
       if (newUserId) {
         fetch(
