@@ -229,6 +229,7 @@ function ReminderApp({ onLogout, darkMode }) {
         </div>
       </StyledNav>
       <Container darkMode={darkMode}>
+        <ReminderHeader darkMode={darkMode} />
         <FormContainer darkMode={darkMode}>
           <h2>Create Reminder</h2>
           <InputContainer>
@@ -273,7 +274,7 @@ function ReminderApp({ onLogout, darkMode }) {
             Set Reminder
           </button>
         </FormContainer>
-        <ReminderHeader darkMode={darkMode} />
+
         <RemindersContainer>
           {reminders.map((reminder, index) => (
             <ReminderCard key={index} darkMode={darkMode}>
