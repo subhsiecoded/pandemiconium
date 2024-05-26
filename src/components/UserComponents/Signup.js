@@ -61,15 +61,6 @@ const Signup = ({ onSignup, darkMode }) => {
         }
       );
 
-      // Check if the response is ok
-      if (!response.ok) {
-        console.log("Server response:", response);
-        const errorData = await response.text(); // Get the response body
-        console.error("Signup failed. Server response:", errorData);
-        toast.error("Signup failed. Please try again.");
-        return;
-      }
-
       // Try to parse the response as JSON
       const responseData = await response.json();
 
