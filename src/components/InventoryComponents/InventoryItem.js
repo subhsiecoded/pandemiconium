@@ -26,6 +26,11 @@ function InventoryItem({ item, removeItem, updateItem }) {
     setEditedItem((prevItem) => ({ ...prevItem, [name]: value }));
   };
 
+  const handleRemoveClick = () => {
+    removeItem(item.id); // Call removeItem with the item id
+    toast.success("Item removed successfully.");
+  };
+
   return (
     <div className="inventory-item">
       {isEditing ? (
@@ -68,7 +73,7 @@ function InventoryItem({ item, removeItem, updateItem }) {
             Threshold: {item.threshold} {item.unit}
           </p>
           <button onClick={handleEditClick}>Edit</button>
-          <button onClick={() => removeItem(item.id)}>Remove</button>
+          <button onClick={handleRemoveClick}>Remove</button>{" "}
         </div>
       )}
     </div>

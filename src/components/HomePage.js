@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import dev1 from "./img/subhasish.jpg";
 import dev2 from "./img/ranganath.jpg";
 import dev3 from "./img/muhsin.jpg";
@@ -20,7 +20,7 @@ import Custombodyfont from "./fonts/Kreasi-YqEjO.otf";
 import HomePageHeader from "./headers/HomePageHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import BackToTop from '@mui/icons-material/ArrowUpward';
+import BackToTop from "@mui/icons-material/ArrowUpward";
 
 const Section = styled.section`
   margin: 40px;
@@ -89,13 +89,14 @@ const DeveloperTile = styled.div`
   margin: 20px;
   cursor: pointer;
   width: calc(25% - 40px);
-  height: 280px;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 20px;
+  box-sizing: border-box;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(154, 215, 241, 0.3);
     animation: shadowAnimation 0.3s infinite alternate ease;
   }
 
@@ -107,6 +108,14 @@ const DeveloperTile = styled.div`
       box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
     }
   }
+`;
+
+const DeveloperTileImage = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
 `;
 
 const DeveloperContainer = styled.div`
@@ -125,13 +134,6 @@ const DeveloperContent = styled.div`
   padding: 20px;
 `;
 
-const DeveloperTileImage = styled.img`
-  width: 200px; /* Adjust image width */
-  height: 200px; /* Adjust image height */
-  border-radius: 50%; /* Make it circular */
-  object-fit: cover;
-`;
-
 const DeveloperName = styled.h3`
   @font-face {
     font-family: "CustomBodyFont";
@@ -141,7 +143,7 @@ const DeveloperName = styled.h3`
     font-display: swap;
   }
   margin-top: 14px;
-  font-size: 22px;
+  font-size: 28px;
   font-weight: bold;
   font-family: "CustomBodyFont", cursive;
 `;
@@ -149,9 +151,10 @@ const DeveloperName = styled.h3`
 const DeveloperRole = styled.p`
   margin-top: 10px;
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 22px;
   font-family: "Comic Sans MS", cursive;
 `;
+
 const StyledNav = styled.nav`
   background-color: #343a40;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -200,17 +203,36 @@ const HomePage = () => {
   const [aboutVisible, setAboutVisible] = useState(false);
   const aboutRef = useRef(null);
   const [notificationsShown, setNotificationsShown] = useState(false);
+  const [animatedSections, setAnimatedSections] = useState([]);
+
+  const sectionAnimationControls = useAnimation();
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["pandemic", "history", "notes", "news", "inventory"];
-      sections.forEach((section) => {
+      const sections = [
+        "pandemic",
+        "history",
+        "notes",
+        "news",
+        "inventory",
+        "pandemicInfo",
+      ];
+      sections.forEach((section, index) => {
         const sectionRef = document.getElementById(section);
         if (
           sectionRef &&
-          sectionRef.getBoundingClientRect().top < window.innerHeight * 0.75
+          sectionRef.getBoundingClientRect().bottom <= window.innerHeight &&
+          !animatedSections.includes(section)
         ) {
           toggleCollapse(section);
+          setAnimatedSections((prevState) => [...prevState, section]);
+
+          const direction = index % 2 === 0 ? "-100vw" : "100vw";
+          sectionAnimationControls.start({
+            x: 0,
+            transition: { duration: 0.5 },
+            from: { x: direction },
+          });
         }
       });
 
@@ -226,7 +248,7 @@ const HomePage = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [animatedSections, sectionAnimationControls]);
 
   const navigate = useNavigate();
 
@@ -246,32 +268,34 @@ const HomePage = () => {
       },
     ];
 
-    const interval = setInterval(() => {
-      const message = toastMessages.shift();
-      if (message) {
-        const toastId = toast(
-          <div
-            style={{
-              fontFamily: "Comic Sans MS",
-              color: "#333",
-              fontWeight: "bold",
-            }}
-          >
-            {message.message}
-          </div>,
-          {
-            position: "bottom-right",
-            autoClose: 20000, // 20 seconds
-            onClick: () => navigateToPage(message.path),
-          }
-        );
-      } else {
-        clearInterval(interval);
-        setNotificationsShown(true);
-      }
-    }, 5000); // 5 seconds after the user views the home page
+    if (!notificationsShown) {
+      const interval = setInterval(() => {
+        const message = toastMessages.shift();
+        if (message) {
+          const toastId = toast(
+            <div
+              style={{
+                fontFamily: "Comic Sans MS",
+                color: "#333",
+                fontWeight: "bold",
+              }}
+            >
+              {message.message}
+            </div>,
+            {
+              position: "bottom-right",
+              autoClose: 20000, // 20 seconds
+              onClick: () => navigateToPage(message.path),
+            }
+          );
+        } else {
+          clearInterval(interval);
+          setNotificationsShown(true);
+        }
+      }, 5000); // 5 seconds after the user views the home page
 
-    return () => clearInterval(interval);
+      return () => clearInterval(interval);
+    }
   }, [notificationsShown, navigate]);
 
   const navigateToPage = (path) => {
@@ -692,41 +716,101 @@ const HomePage = () => {
             </Section>
 
             <AboutSection id="aboutSection">
-              <SectionHeading>About Us</SectionHeading>
+              <SectionHeading>About the devs!</SectionHeading>
               <DeveloperContainer>
                 <DeveloperTile>
-                  <DeveloperContent>
-                    <DeveloperTileImage src={dev1} alt="Developer 1" />
-                    <DeveloperName>Subhasish Das</DeveloperName>
-                    <DeveloperRole>Front-end Developer.</DeveloperRole>
-                  </DeveloperContent>
+                  <DeveloperTileImage src={dev1} alt="Developer 1" />
+                  <DeveloperName>Subhasish Das</DeveloperName>
+                  <DeveloperRole>Front-end Developer.</DeveloperRole>
+                  <p
+                    style={{
+                      marginTop: "10px",
+                      marginBottom: "20px",
+                      fontSize: "18px",
+                      fontFamily: "Comic Sans MS, cursive",
+                      textAlign: "center",
+                    }}
+                  >
+                    As the frontend developer, I leveraged the power of ReactJS
+                    to create a dynamic and interactive user interface for
+                    Pandemiconium. By utilizing React components and state
+                    management, I ensured seamless rendering and efficient
+                    updates. With the help of styled-components and CSS, I
+                    crafted an engaging visual design that adheres to modern web
+                    standards. Additionally, I integrated various React modules,
+                    such as react-router-dom for navigation and framer-motion
+                    for animations, to enhance the overall user experience and
+                    create a truly immersive web application.
+                  </p>
                 </DeveloperTile>
                 <DeveloperTile>
-                  <DeveloperContent>
-                    <DeveloperTileImage src={dev2} alt="Developer 2" />
-                    <DeveloperName>Ranganath V.</DeveloperName>
-                    <DeveloperRole>
-                      Backend Designer and API developer.
-                    </DeveloperRole>
-                  </DeveloperContent>
+                  <DeveloperTileImage src={dev2} alt="Developer 2" />
+                  <DeveloperName>Ranganath V.</DeveloperName>
+                  <DeveloperRole>
+                    Backend Designer and API developer.
+                  </DeveloperRole>
+                  <p
+                    style={{
+                      marginTop: "10px",
+                      marginBottom: "20px",
+                      fontSize: "18px",
+                      fontFamily: "Comic Sans MS, cursive",
+                      textAlign: "center",
+                    }}
+                  >
+                    As the Backend Designer and API developer, I leveraged the
+                    power of Minimal API to establish a seamless connection
+                    between the frontend and backend. I implemented robust user
+                    authentication mechanisms, ensuring secure access to the
+                    application. Additionally, I integrated email services to
+                    facilitate seamless communication with users upon successful
+                    sign-up. To store user details securely, I utilized highly
+                    secure MySQL databases, adhering to industry-standard
+                    security practices. Furthermore, I incorporated JWT tokens
+                    for enhanced user session management and authentication,
+                    providing an extra layer of security for our application.
+                  </p>
                 </DeveloperTile>
                 <DeveloperTile>
-                  <DeveloperContent>
-                    <DeveloperTileImage src={dev3} alt="Developer 3" />
-                    <DeveloperName>Muhsin Bashir</DeveloperName>
-                    <DeveloperRole>
-                      Head of Research and Analysis.
-                    </DeveloperRole>
-                  </DeveloperContent>
+                  <DeveloperTileImage src={dev3} alt="Developer 3" />
+                  <DeveloperName>Muhsin Bashir</DeveloperName>
+                  <DeveloperRole>Head of Research and Analysis.</DeveloperRole>
+                  <p
+                    style={{
+                      marginTop: "10px",
+                      marginBottom: "20px",
+                      fontSize: "18px",
+                      fontFamily: "Comic Sans MS, cursive",
+                      textAlign: "center",
+                    }}
+                  >
+                    As the Head of Research and Analysis, I lead efforts to
+                    investigate pandemic-related topics, providing valuable
+                    insights that guide our strategies. My role focuses on
+                    conducting thorough research to support our decision-making
+                    processes and ensuring that our initiatives are based on the
+                    latest findings and trends in the field.
+                  </p>
                 </DeveloperTile>
                 <DeveloperTile>
-                  <DeveloperContent>
-                    <DeveloperTileImage src={dev4} alt="Developer 4" />
-                    <DeveloperName>Bhumika Raj</DeveloperName>
-                    <DeveloperRole>
-                      Head of publications.
-                    </DeveloperRole>
-                  </DeveloperContent>
+                  <DeveloperTileImage src={dev4} alt="Developer 4" />
+                  <DeveloperName>Bhumika Raj</DeveloperName>
+                  <DeveloperRole>Head of Publications.</DeveloperRole>
+                  <p
+                    style={{
+                      marginTop: "10px",
+                      marginBottom: "20px",
+                      fontSize: "18px",
+                      fontFamily: "Comic Sans MS, cursive",
+                      textAlign: "center",
+                    }}
+                  >
+                    As the Head of Publications, I manage the dissemination of
+                    our research through reports, presentations, and academic
+                    papers. My role ensures that our findings are effectively
+                    communicated to the broader community, aiding in the
+                    dissemination of knowledge and the impact of our work.
+                  </p>
                 </DeveloperTile>
               </DeveloperContainer>
             </AboutSection>
