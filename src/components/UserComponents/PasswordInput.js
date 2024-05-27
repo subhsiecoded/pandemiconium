@@ -9,7 +9,7 @@ const PasswordInputContainer = styled.div`
 `;
 
 const PasswordInputField = styled.input`
-  padding-right: 30px; /* Make space for the icon */
+  padding-right: 30px; 
 `;
 
 const PasswordToggleIcon = styled.img`
@@ -18,8 +18,8 @@ const PasswordToggleIcon = styled.img`
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
-  width: 20px; /* Adjust the size as needed */
-  height: 20px; /* Adjust the size as needed */
+  width: 20px; 
+  height: 20px; 
 `;
 
 const PasswordInput = ({ placeholder, value, onChange }) => {

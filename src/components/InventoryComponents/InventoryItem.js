@@ -27,7 +27,7 @@ function InventoryItem({ item, removeItem, updateItem }) {
   };
 
   const handleRemoveClick = () => {
-    removeItem(item.id); // Call removeItem with the item id
+    removeItem(item.id); 
     toast.success("Item removed successfully.");
   };
 

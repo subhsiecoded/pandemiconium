@@ -6,16 +6,13 @@ import Note from "./Note";
 import { v4 as uuid } from "uuid";
 
 function Notes() { 
-    // States
     const [notes, setNotes] = useState([]);
     const [inputText, setInputText] = useState("");
 
-    // Handler to update inputText state
     const textHandler = (e) => {
         setInputText(e.target.value);
     };
 
-    // Handler to add a new note to the state array
     const saveHandler = () => {
         setNotes((prevNotes) => [
             ...prevNotes,
@@ -24,11 +21,9 @@ function Notes() {
                 text: inputText,
             },
         ]);
-        // Clear the textarea
         setInputText("");
     };
 
-    // Handler to delete a note
     const deleteNote = (id) => {
         const filteredNotes = notes.filter((note) => note.id !== id);
         alert(" Are you sure you want to delete the note???")
@@ -46,7 +41,6 @@ function Notes() {
       }
     return (
         <div className="notes">
-            {/* Mapping through notes array to render Note components */}
             {notes.map((note) => (
                 <Note
                     key={note.id}
@@ -55,7 +49,6 @@ function Notes() {
                     deleteNote={deleteNote}
                 />
             ))}
-            {/* Render CreateNote component */}
             <CreateNote
                 textHandler={textHandler}
                 saveHandler={saveHandler}

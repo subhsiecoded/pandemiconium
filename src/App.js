@@ -62,15 +62,15 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  color: ${(props) => (props.darkMode ? "#fff" : "#222")}; /* Text color */
+  color: ${(props) => (props.darkMode ? "#fff" : "#222")}; 
   background-image: url(${logoWatermark});
-  background-repeat: repeat; /* Repeat the watermark across the entire background */
+  background-repeat: repeat; 
 `;
 
 const LogoNoUser = styled.div`
-  color: ${(props) => (props.darkMode ? "#fff" : "#222")}; /* Text color */
+  color: ${(props) => (props.darkMode ? "#fff" : "#222")}; 
   background-image: url(${logoWatermark});
-  background-repeat: repeat; /* Repeat the watermark across the entire background */
+  background-repeat: repeat; 
   height: 100vh;
 `;
 
@@ -84,11 +84,11 @@ const FormContainer = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   color: ${(props) => (props.darkMode ? "#fff" : "#222")};
   /* Text color */
-  margin: auto; /* Center the container horizontally */
+  margin: auto; 
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center the container vertically */
-  align-items: center; /* Center the items horizontally */
+  justify-content: center; 
+  align-items: center; 
 `;
 
 const LandingPage = ({ darkMode }) => {
@@ -162,7 +162,7 @@ const App = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
     alert("You have been logged out");
-    window.location.reload(); // Reload the page after logout
+    window.location.reload(); 
   };
 
   const toggleDarkMode = () => {
@@ -273,7 +273,7 @@ const App = () => {
           className="btn btn-danger"
           style={{
             position: "fixed",
-            top: "90px", // Adjust this value as needed
+            top: "90px", 
             right: "20px",
           }}
         >
@@ -285,9 +285,9 @@ const App = () => {
         className="btn btn-info darkmodebutton"
         style={{
           position: "fixed",
-          top: "20px", // Adjust this value as needed
+          top: "20px", 
           right: "20px",
-          zIndex: 9999, // Ensure the button is on top of other elements
+          zIndex: 9999, 
         }}
       >
         <img

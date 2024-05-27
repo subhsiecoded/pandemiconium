@@ -2,7 +2,7 @@ import React from "react";
 import ArticleTile from "./ArticleTile";
 
 const StarredArticles = ({
-  articles, // Use the articles prop
+  articles, 
   onUnstar,
   onExpand,
   onCollapse,

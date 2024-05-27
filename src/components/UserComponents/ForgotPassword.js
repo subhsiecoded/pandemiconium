@@ -72,7 +72,7 @@ const ForgotPassword = ({ darkMode }) => {
           setMessage(data.message);
           setResetPassword(true);
         } else {
-          const errorMessage = await response.text(); // Get the error message as text
+          const errorMessage = await response.text(); 
           setMessage(errorMessage || "An error occurred during password reset");
         }
       } catch (error) {
@@ -80,7 +80,6 @@ const ForgotPassword = ({ darkMode }) => {
         setMessage("An error occurred during password reset");
       }
     } else {
-      // Handle reset password submission
       if (newPassword === confirmNewPassword) {
         try {
           const response = await fetch(
@@ -96,7 +95,7 @@ const ForgotPassword = ({ darkMode }) => {
           const data = await response.json();
           if (response.ok) {
             setMessage(data.message);
-            navigate("/login"); // Redirect to the login page after successful reset
+            navigate("/login"); 
           } else {
             setMessage(
               data.message || "An error occurred during password reset"

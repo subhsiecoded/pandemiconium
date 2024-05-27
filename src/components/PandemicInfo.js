@@ -42,7 +42,6 @@ const BackToTopButton = styled.button`
   cursor: pointer;
   z-index: 1000;
   
-  /* Bootstrap primary button styles */
   background-color: #007bff;
   border-color: #007bff;
   padding: 0.375rem 0.75rem;
@@ -144,7 +143,7 @@ const SectionImage = styled(motion.img)`
 
 const Pandemicinfo = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const [expandedIndex, setExpandedIndex] = useState([0, 1, 2]); // Initial state to expand all sections
+  const [expandedIndex, setExpandedIndex] = useState([0, 1, 2]); 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };

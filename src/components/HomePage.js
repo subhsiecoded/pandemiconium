@@ -55,7 +55,7 @@ const SectionHeading = styled.h2`
   font-weight: bold;
   cursor: pointer;
   font-family: "CustomHeaderFont", cursive;
-  font-size: 38px; /* Adjust font size */
+  font-size: 38px; 
 `;
 
 const SectionContent = styled.div`
@@ -122,7 +122,7 @@ const DeveloperContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 0 -20px; /* Adjust the negative margin to remove extra space */
+  margin: 0 -20px; 
 `;
 
 const DeveloperContent = styled.div`
@@ -161,7 +161,7 @@ const StyledNav = styled.nav`
   padding: 0.5rem 1rem;
 
   .navbar-brand {
-    color: #fff; /* Set the logo text color to white */
+    color: #fff; 
   }
 
   .nav-link {
@@ -284,7 +284,7 @@ const HomePage = () => {
             </div>,
             {
               position: "bottom-right",
-              autoClose: 20000, // 20 seconds
+              autoClose: 20000, 
               onClick: () => navigateToPage(message.path),
             }
           );
@@ -292,7 +292,7 @@ const HomePage = () => {
           clearInterval(interval);
           setNotificationsShown(true);
         }
-      }, 5000); // 5 seconds after the user views the home page
+      }, 5000); 
 
       return () => clearInterval(interval);
     }

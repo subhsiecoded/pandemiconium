@@ -17,7 +17,7 @@ import InventoryHeader from "../headers/InventoryHeader";
 
 const Container = styled.div`
   color: ${(props) => (props.darkMode ? "white" : "black")};
-  background-image: url(${logoWatermark}); /* Static image */
+  background-image: url(${logoWatermark}); 
   background-repeat: repeat;
   min-height: 100vh;
   display: flex;
@@ -31,16 +31,16 @@ const Container = styled.div`
 
   @keyframes animateBackground {
     from {
-      background-position: 0 0; /* Starting position */
+      background-position: 0 0; 
     }
     to {
-      background-position: 100% 100%; /* Ending position */
+      background-position: 100% 100%;
     }
   }
 `;
 
 const FormContainer = styled.div`
-  width: 500px; /* Adjusted width */
+  width: 500px; 
   padding: 20px;
   margin-right: 20px;
   margin-bottom: 20px;
@@ -72,33 +72,33 @@ const InventoryItemContainer = styled.div`
 `;
 
 const StyledNav = styled.nav`
-  background-color: #343a40; /* Dark background color */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
-  padding: 0.5rem 1rem; /* Add some padding */
+  background-color: #343a40;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  padding: 0.5rem 1rem; 
 
   .navbar-brand {
-    color: #fff; /* Set the logo text color to white */
+    color: #fff; 
   }
 
   .nav-link {
-    color: #ccc; /* Set the default link color to light gray */
+    color: #ccc; 
     transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 0.5rem 1rem; /* Add some padding to the links */
-    border-radius: 0.25rem; /* Add rounded corners */
+    padding: 0.5rem 1rem; 
+    border-radius: 0.25rem;
 
     &:hover {
-      background-color: #fff; /* Change the background color to white on hover */
-      color: #343a40; /* Change the text color to dark on hover */
+      background-color: #fff; 
+      color: #343a40; 
     }
 
     &.active {
-      background-color: #007bff; /* Change the background color for the active link */
-      color: #fff; /* Change the text color for the active link */
+      background-color: #007bff; 
+      color: #fff; 
     }
   }
 
   .navbar-toggler {
-    border-color: #ccc; /* Change the border color of the toggler */
+    border-color: #ccc;
   }
 
   .navbar-toggler-icon {
@@ -161,9 +161,8 @@ function Inventory({ darkMode }) {
   const [oldQuantity, setOldQuantity] = useState(null);
 
   useEffect(() => {
-    // Fetch inventory lists when component mounts
     fetchInventoryLists();
-  }, []); // Empty dependency array ensures this effect runs only once
+  }, []); 
 
   const fetchInventoryLists = () => {
     const token = JSON.parse(localStorage.getItem("userId"))?.token;
@@ -187,7 +186,6 @@ function Inventory({ darkMode }) {
       })
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
-          // Group items by their list title
           const groupedItems = data.reduce((acc, item) => {
             const listTitle = item.list_name || "Untitled List";
             if (!acc[listTitle]) {
@@ -203,7 +201,6 @@ function Inventory({ darkMode }) {
             return acc;
           }, {});
 
-          // Convert the grouped items into list objects
           const formattedLists = Object.entries(groupedItems).map(
             ([title, items]) => ({
               id: uuid(),
@@ -232,7 +229,6 @@ function Inventory({ darkMode }) {
     const existingList = lists.find((list) => list.title === listTitle);
 
     if (existingList) {
-      // List with the given title already exists, add the item to that list
       if (existingList.items.length >= 10) {
         displayPopupMessage("Cannot add more than 10 items.");
         return;
@@ -284,7 +280,6 @@ function Inventory({ darkMode }) {
           displayPopupMessage("Error adding item. Please try again later.");
         });
     } else {
-      // List with the given title doesn't exist, create a new list
       const uniqueTitle = generateUniqueTitle(lists, listTitle);
       const newList = {
         id: uuid(),
@@ -327,7 +322,6 @@ function Inventory({ darkMode }) {
       })
       .then((data) => {
         console.log("Item deleted successfully:", data);
-        // Update the state to remove the deleted item
         setLists((prevLists) =>
           prevLists.map((list) =>
             list.id === listId
@@ -482,7 +476,6 @@ function Inventory({ darkMode }) {
       })
       .then((data) => {
         console.log("Item updated successfully:", data);
-        // Update the item in the state
         setLists((prevLists) =>
           prevLists.map((list) =>
             list.id === listId

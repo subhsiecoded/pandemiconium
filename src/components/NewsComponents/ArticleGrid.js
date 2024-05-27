@@ -5,19 +5,18 @@ import { CSSTransition } from 'react-transition-group';
 
 const ArticleGrid = ({ news, onStar, darkMode }) => {
   const [visibleArticles, setVisibleArticles] = useState(6);
-  const [animate, setAnimate] = useState(false); // New state for animation
+  const [animate, setAnimate] = useState(false); 
 
   useEffect(() => {
-    setAnimate(true); // Trigger animation when component mounts
+    setAnimate(true);
   }, []);
 
   const loadMoreArticles = () => {
     setVisibleArticles(prevVisibleArticles => prevVisibleArticles + 3);
   };
 
-  // Add a check to ensure news is defined before slicing
   if (!news) {
-    return null; // Or any fallback UI you prefer
+    return null; 
   }
 
   return (

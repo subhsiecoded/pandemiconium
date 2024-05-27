@@ -44,7 +44,7 @@ const Signup = ({ onSignup, darkMode }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [userId, setUserId] = useState(null); // State to store user ID
+  const [userId, setUserId] = useState(null); 
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -60,16 +60,16 @@ const Signup = ({ onSignup, darkMode }) => {
         }
       );
 
-      // Check if the response is ok
+      
       if (!response.ok) {
         console.log("Server response:", response);
-        const errorData = await response.text(); // Get the response body
+        const errorData = await response.text(); 
         console.error("Signup failed. Server response:", errorData);
         setError("Signup failed. Please try again.");
         return;
       }
 
-      // Check if response body is empty
+      
       const responseData = await response.text();
       if (!responseData) {
         console.error("Signup failed. Empty response.");
@@ -77,7 +77,6 @@ const Signup = ({ onSignup, darkMode }) => {
         return;
       }
 
-      // Try to parse the response as JSON
       let data;
       try {
         data = JSON.parse(responseData);
@@ -89,8 +88,8 @@ const Signup = ({ onSignup, darkMode }) => {
 
       if (data.token) {
         const userId = data.userId;
-        console.log("Signup successful! UserID:", userId);
-        console.log("JWT Token:", data.token); // Logging JWT Token
+        // console.log("Signup successful! UserID:", userId);
+        // console.log("JWT Token:", data.token); 
         setUserId(userId);
         localStorage.setItem("userId", userId);
       } else {

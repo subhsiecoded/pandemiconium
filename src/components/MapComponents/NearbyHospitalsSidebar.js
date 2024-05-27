@@ -70,7 +70,6 @@ const NearbyLocationsSidebar = ({ mapRef, sidebarOpen }) => {
         );
         const data = await response.json();
 
-        // Filter locations by name containing the specified words
         const filteredLocations = data.features.filter((location) =>
           matchesKeywords(location.text)
         );
@@ -94,7 +93,7 @@ const NearbyLocationsSidebar = ({ mapRef, sidebarOpen }) => {
   };
 
   const fetchNearbyHealthcareFacilities = async (latitude, longitude) => {
-    const radius = 15000; // in meters (15 km)
+    const radius = 15000; 
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/hospital.json?proximity=${longitude},${latitude}&radius=${radius}&access_token=${mapboxgl.accessToken}`;
     return await fetch(url);
   };
@@ -131,7 +130,7 @@ const NearbyLocationsSidebar = ({ mapRef, sidebarOpen }) => {
   };
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371e3; // Earth radius in meters
+    const R = 6371e3; 
     const φ1 = (lat1 * Math.PI) / 180;
     const φ2 = (lat2 * Math.PI) / 180;
     const Δφ = ((lat2 - lat1) * Math.PI) / 180;

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Customheaderfont from "../fonts/AGoblinAppears-o2aV.ttf";
 
-const ReminderHeaderContainer = styled.h2`
+const MapHeaderContainer = styled.h2`
   @font-face {
     font-family: "CustomHeaderFont";
     src: url(${Customheaderfont}) format("woff2");
@@ -15,7 +15,7 @@ const ReminderHeaderContainer = styled.h2`
   font-weight: bold;
   cursor: pointer;
   font-family: "CustomHeaderFont", cursive;
-  font-size: 38px; /* Adjust font size */
+  font-size: 38px;
 `;
 function MapHeader({ darkMode }) {
   return (
@@ -26,9 +26,9 @@ function MapHeader({ darkMode }) {
         textAlign: "center",
       }}
     >
-      <ReminderHeaderContainer darkMode={darkMode}>
+      <MapHeaderContainer darkMode={darkMode}>
         <h1 className="notes__title mb-4">Pandemiconium Map Portal</h1>
-      </ReminderHeaderContainer>
+      </MapHeaderContainer>
     </div>
   );
 }

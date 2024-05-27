@@ -24,7 +24,7 @@ const StyledNav = styled.nav`
   padding: 0.5rem 1rem;
 
   .navbar-brand {
-    color: #fff; /* Set the logo text color to white */
+    color: #fff; 
   }
 
   .nav-link {
@@ -326,7 +326,6 @@ const Map = ({ darkMode }) => {
 
   const addStarMarker = (coordinates, locationId) => {
     if (!mapRef.current) {
-      // Map is not initialized yet, so we cannot add the marker
       return;
     }
 
@@ -354,14 +353,13 @@ const Map = ({ darkMode }) => {
     setStarredLocations(updatedLocations);
     removeStarMarker(unstarredLocation.name);
 
-    // Make DELETE request to remove starred location
     fetch("https://pandemiconiummanager.azurewebsites.net/DeleteLocation", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: userId, // Use the token value directly
+        id: userId, 
         coordinates: `${unstarredLocation.coordinates.lng},${unstarredLocation.coordinates.lat}`,
       }),
     })
@@ -372,7 +370,6 @@ const Map = ({ darkMode }) => {
       })
       .catch((error) => {
         console.error("Error deleting starred location:", error);
-        // Handle error (e.g., show a toast notification)
       });
   };
 
@@ -435,14 +432,13 @@ const Map = ({ darkMode }) => {
     ]);
     addStarMarker(coordinates, location.name);
 
-    // Make POST request to save the starred location
     fetch("https://pandemiconiummanager.azurewebsites.net/StarLocation", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: userId, // Use the token value directly
+        id: userId, 
         name: location.name,
         address: location.address,
         coordinates: `${coordinates.lng},${coordinates.lat}`,
@@ -452,11 +448,9 @@ const Map = ({ darkMode }) => {
         if (!response.ok) {
           throw new Error("Failed to save starred location");
         }
-        // If the response is successful, you can do additional operations here if needed
       })
       .catch((error) => {
         console.error("Error saving starred location:", error);
-        // Handle error (e.g., show a toast notification)
       });
   };
 

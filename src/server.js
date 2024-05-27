@@ -8,7 +8,6 @@ const NEWS_API_KEY = '7e37076f4c10468b8ba932870b434b0b';
 
 app.use(cors());
 
-// Proxy endpoint for news API requests
 app.get('/news', async (req, res) => {
   const { category } = req.query;
   let apiUrl;

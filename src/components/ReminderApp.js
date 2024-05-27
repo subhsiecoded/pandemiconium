@@ -12,7 +12,7 @@ import CurrentDateTime from "./CurrentDateTime";
 
 const Container = styled.div`
   color: ${(props) => (props.darkMode ? "white" : "black")};
-  background-image: url(${logoWatermark}); /* Static image */
+  background-image: url(${logoWatermark}); 
   background-repeat: repeat;
   min-height: 100vh;
   display: flex;
@@ -22,14 +22,14 @@ const Container = styled.div`
   padding-top: 50px;
   background-position: center;
   background-attachment: fixed;
-  animation: animateBackground 10s linear infinite; /* Change the time as needed */
+  animation: animateBackground 10s linear infinite; 
 
   @keyframes animateBackground {
     from {
-      background-position: 0 0; /* Starting position */
+      background-position: 0 0;
     }
     to {
-      background-position: 100% 100%; /* Ending position */
+      background-position: 100% 100%; 
     }
   }
 `;
@@ -43,36 +43,36 @@ const FormContainer = styled.div`
   background-color: ${(props) => (props.darkMode ? "#333" : "#ffffff")};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   color: ${(props) => (props.darkMode ? "#fff" : "#222")};
-  /* Text color */
+  
 `;
 const StyledNav = styled.nav`
-  background-color: #343a40; /* Dark background color */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
-  padding: 0.5rem 1rem; /* Add some padding */
+  background-color: #343a40; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  padding: 0.5rem 1rem; 
 
   .navbar-brand {
-    color: #fff; /* Set the logo text color to white */
+    color: #fff; 
   }
 
   .nav-link {
-    color: #ccc; /* Set the default link color to light gray */
+    color: #ccc; 
     transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 0.5rem 1rem; /* Add some padding to the links */
-    border-radius: 0.25rem; /* Add rounded corners */
+    padding: 0.5rem 1rem; 
+    border-radius: 0.25rem; 
 
     &:hover {
-      background-color: #fff; /* Change the background color to white on hover */
-      color: #343a40; /* Change the text color to dark on hover */
+      background-color: #fff;
+      color: #343a40;
     }
 
     &.active {
-      background-color: #007bff; /* Change the background color for the active link */
-      color: #fff; /* Change the text color for the active link */
+      background-color: #007bff; 
+      color: #fff; 
     }
   }
 
   .navbar-toggler {
-    border-color: #ccc; /* Change the border color of the toggler */
+    border-color: #ccc; 
   }
 
   .navbar-toggler-icon {
@@ -88,7 +88,7 @@ const RemindersContainer = styled.div`
 `;
 
 const ReminderCard = styled.div`
-  width: calc(33.33% - 20px); /* Adjust width to fit 3 cards in one row */
+  width: calc(33.33% - 20px); 
   flex-grow: 1;
   margin: 10px;
   padding: 20px;
@@ -136,13 +136,11 @@ function ReminderApp({ onLogout, darkMode }) {
       return;
     }
 
-    // Check if date is empty
     if (!date) {
       toast.error("Please select a date");
       return;
     }
 
-    // Save the reminder
     const newReminder = {
       name: reminderName,
       startTime,
@@ -152,7 +150,6 @@ function ReminderApp({ onLogout, darkMode }) {
     setReminders([...reminders, newReminder]);
     toast.success("Reminder saved!");
 
-    // Clear the form fields
     setReminderName("");
     setStartTime("08:00");
     setEndTime("09:00");
@@ -297,7 +294,7 @@ function ReminderApp({ onLogout, darkMode }) {
         className="btn btn-danger"
         style={{
           position: "fixed",
-          top: "90px", // Adjust this value as needed
+          top: "90px", 
           right: "20px",
         }}
       >

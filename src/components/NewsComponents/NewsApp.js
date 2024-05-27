@@ -25,11 +25,11 @@ const NewsHeaderContainer = styled.h2`
   font-weight: bold;
   cursor: pointer;
   font-family: "CustomHeaderFont", cursive;
-  font-size: 38px; /* Adjust font size */
+  font-size: 38px; 
 `;
 
 const Container = styled.div`
-  background-image: url(${logoWatermark}); /* Static image */
+  background-image: url(${logoWatermark}); 
   background-repeat: repeat;
   min-height: 100vh;
   display: flex;
@@ -39,55 +39,54 @@ const Container = styled.div`
   padding-top: 50px;
   background-position: center;
   background-attachment: fixed;
-  animation: animateBackground 10s linear infinite; /* Change the time as needed */
+  animation: animateBackground 10s linear infinite; 
 
   @keyframes animateBackground {
     from {
-      background-position: 0 0; /* Starting position */
+      background-position: 0 0; 
     }
     to {
-      background-position: 100% 100%; /* Ending position */
+      background-position: 100% 100%; 
     }
   }
 `;
 
 const StyledNav = styled.nav`
-  background-color: #343a40; /* Dark background color */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
-  padding: 0.5rem 1rem; /* Add some padding */
+  background-color: #343a40; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  padding: 0.5rem 1rem; 
 
   .navbar-brand {
-    color: #fff; /* Set the logo text color to white */
+    color: #fff; 
   }
 
   .nav-link {
-    color: #ccc; /* Set the default link color to light gray */
+    color: #ccc; 
     transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 0.5rem 1rem; /* Add some padding to the links */
-    border-radius: 0.25rem; /* Add rounded corners */
+    padding: 0.5rem 1rem; 
+    border-radius: 0.25rem;
 
     &:hover {
-      background-color: #fff; /* Change the background color to white on hover */
-      color: #343a40; /* Change the text color to dark on hover */
+      background-color: #fff; 
+      color: #343a40; 
     }
 
     &.active {
-      background-color: #007bff; /* Change the background color for the active link */
-      color: #fff; /* Change the text color for the active link */
+      background-color: #007bff;
+      color: #fff; 
     }
   }
 
   .navbar-toggler {
-    border-color: #ccc; /* Change the border color of the toggler */
+    border-color: #ccc;
   }
 
   .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* Change the toggler icon to a custom SVG */
   }
 `;
-// Define the NewsApp component
+
 const NewsApp = ({ onLogout, darkMode }) => {
-  // State variables
   const [covidNews, setCovidNews] = useState([]);
   const [vaccineNews, setVaccineNews] = useState([]);
   const [generalNews, setGeneralNews] = useState([]);
@@ -98,13 +97,12 @@ const NewsApp = ({ onLogout, darkMode }) => {
   const [covidCollapsed, setCovidCollapsed] = useState(false);
   const [vaccineCollapsed, setVaccineCollapsed] = useState(false);
   const [generalCollapsed, setGeneralCollapsed] = useState(false);
-  const proxyUrl = "http://localhost:3001/news"; // Replace with your deployed proxy server URL
+  const proxyUrl = "http://localhost:3001/news"; 
 
-  // useEffect hook to fetch data
   useEffect(() => {
     fetchNews("covid");
     fetchNews("vaccine");
-    fetchNews("general"); // Fetch general news
+    fetchNews("general"); 
     const storedUserId = JSON.parse(localStorage.getItem("userId"));
     setUserId(storedUserId);
 
@@ -114,7 +112,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
     toggleStarredArticles();
   }, []);
 
-  // Function to toggle starred articles section
   const toggleStarredArticles = () => {
     setShowStarredArticles(!showStarredArticles);
     if (!showStarredArticles && userId) {
@@ -122,7 +119,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
     }
   };
 
-  // Function to fetch news based on category
   const fetchNews = async (category) => {
     try {
       const response = await fetch(`${proxyUrl}?category=${category}`);
@@ -132,14 +128,13 @@ const NewsApp = ({ onLogout, darkMode }) => {
       } else if (category === "vaccine") {
         setVaccineNews(data.articles);
       } else if (category === "general") {
-        setGeneralNews(data.articles); // Set general news data
+        setGeneralNews(data.articles); 
       }
     } catch (error) {
       console.error(`Error fetching ${category} news:`, error);
     }
   };
 
-  // Function to fetch starred articles
   const fetchStarredArticles = async (token) => {
     try {
       const response = await fetch(
@@ -157,7 +152,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
     }
   };
 
-  // Function to save starred article
   const saveStarredArticle = async (article, userId) => {
     try {
       const response = await fetch(
@@ -189,7 +183,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
     }
   };
 
-  // Function to delete starred article
   const deleteStarredArticle = async (article) => {
     try {
       const deleteUrl = `https://pandemiconiummanager.azurewebsites.net/DeleteStarredArticle`;
@@ -213,7 +206,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
     }
   };
 
-  // Function to handle starring an article
   const handleStarArticle = (article) => {
     if (
       starredArticles.some(
@@ -230,7 +222,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
     }
   };
 
-  // Function to handle un-starring an article
   const handleUnstarArticle = async (article) => {
     try {
       setStarredArticles((prevStarredArticles) =>
@@ -244,7 +235,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
     }
   };
 
-  // Function to display popup message
   const displayPopupMessage = (message) => {
     toast.info(message, {
       autoClose: 2000,
@@ -257,7 +247,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
     });
   };
 
-  // Return the JSX for the NewsApp component
   return (
     <div className={`news-app ${sidebarExpanded ? "sidebar-expanded" : ""}`}>
       <StyledNav
@@ -338,7 +327,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
               <ArticleGrid news={covidNews} onStar={handleStarArticle} />
             )}
           </section>
-          {/* Vaccine News Section */}
           <section>
             <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
               <span
@@ -352,7 +340,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
               <ArticleGrid news={vaccineNews} onStar={handleStarArticle} />
             )}
           </section>
-          {/* General News Section */}
           <section>
             <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
               <span
@@ -367,7 +354,6 @@ const NewsApp = ({ onLogout, darkMode }) => {
             )}
           </section>
           <button className="sidebar-button" onClick={toggleStarredArticles} />
-          {/* Starred Articles Sidebar */}
           {showStarredArticles && (
             <StarredArticles
               articles={starredArticles}

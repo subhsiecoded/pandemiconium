@@ -45,7 +45,7 @@ const VirusIcon = () => (
 const Login = ({ onLogin, darkMode }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Use useNavigate hook
+  const navigate = useNavigate(); 
   const [error, setError] = useState("");
   const [userId, setUserId] = useState(null);
 
@@ -64,11 +64,11 @@ const Login = ({ onLogin, darkMode }) => {
       );
       if (response.ok) {
         response.json().then((data) => {
-          const token = data.token; // Extract the token from response
-          console.log("Login successful! Token:", token);
-          localStorage.setItem("userId", JSON.stringify({ token })); // Save token to localStorage
-          onLogin(); // Call onLogin function passed from parent component
-          navigate("/home"); // Use navigate to redirect to /home route
+          const token = data.token; 
+          // console.log("Login successful! Token:", token);
+          localStorage.setItem("userId", JSON.stringify({ token })); 
+          onLogin(); 
+          navigate("/home"); 
         });
       } else {
         setError("Invalid username or password");

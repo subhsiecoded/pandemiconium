@@ -25,12 +25,10 @@ const CustomCursor = () => {
 
     document.addEventListener('mousemove', handleMouseMove);
 
-    // Hide the system cursor
     document.body.style.cursor = 'none';
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      // Reset the cursor style when the component unmounts
       document.body.style.cursor = 'auto';
     };
   }, []);

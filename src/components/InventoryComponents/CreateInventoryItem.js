@@ -11,20 +11,16 @@ function CreateInventoryItem({ addItem }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Convert quantity and threshold to numbers
     const quantityValue = parseFloat(quantity);
     const thresholdValue = parseFloat(threshold);
 
-    // Ensure threshold is not greater than quantity
     if (thresholdValue > quantityValue) {
       toast.error("Threshold cannot be greater than quantity.");
       return;
     }
 
-    // Call addItem function with the item object
     addItem({ name, quantity: quantityValue, threshold: thresholdValue, unit });
 
-    // Reset form fields after submission
     setName("");
     setQuantity("");
     setThreshold("");

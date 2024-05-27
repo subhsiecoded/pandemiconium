@@ -14,17 +14,13 @@ function CreateNote({ saveHandler, fetchNotes }) {
 
   const handleSave = async () => {
     try {
-      // Save the note
       await saveHandler(note);
       
-      // Clear input fields after saving
       setNote({ title: "", text: "" });
       
-      // Fetch the updated notes
       fetchNotes();
     } catch (error) {
       console.error("Error saving note:", error);
-      // Handle error if needed
     }
   };
 

@@ -14,7 +14,7 @@ const NotesHeaderContainer = styled.h2`
   font-weight: bold;
   cursor: pointer;
   font-family: "CustomHeaderFont", cursive;
-  font-size: 38px; /* Adjust font size */
+  font-size: 38px; 
 `;
 
 function Header({ darkMode }) {

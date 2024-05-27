@@ -16,7 +16,7 @@ import { DarkMode } from "@mui/icons-material";
 
 const Container = styled.div`
   color: ${(props) => (props.darkMode ? "white" : "black")};
-  background-image: url(${logoWatermark}); /* Static image */
+  background-image: url(${logoWatermark}); 
   background-repeat: repeat;
   min-height: 100vh;
   display: flex;
@@ -30,41 +30,41 @@ const Container = styled.div`
 
   @keyframes animateBackground {
     from {
-      background-position: 0 0; /* Starting position */
+      background-position: 0 0; 
     }
     to {
-      background-position: 100% 100%; /* Ending position */
+      background-position: 100% 100%; 
     }
   }
 `;
 const StyledNav = styled.nav`
-  background-color: #343a40; /* Dark background color */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
-  padding: 0.5rem 1rem; /* Add some padding */
+  background-color: #343a40; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  padding: 0.5rem 1rem; 
 
   .navbar-brand {
-    color: #fff; /* Set the logo text color to white */
+    color: #fff; 
   }
 
   .nav-link {
-    color: #ccc; /* Set the default link color to light gray */
+    color: #ccc; 
     transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 0.5rem 1rem; /* Add some padding to the links */
-    border-radius: 0.25rem; /* Add rounded corners */
+    padding: 0.5rem 1rem; 
+    border-radius: 0.25rem; 
 
     &:hover {
-      background-color: #fff; /* Change the background color to white on hover */
-      color: #343a40; /* Change the text color to dark on hover */
+      background-color: #fff; 
+      color: #343a40; 
     }
 
     &.active {
-      background-color: #007bff; /* Change the background color for the active link */
-      color: #fff; /* Change the text color for the active link */
+      background-color: #007bff; 
+      color: #fff;
     }
   }
 
   .navbar-toggler {
-    border-color: #ccc; /* Change the border color of the toggler */
+    border-color: #ccc; 
   }
 
   .navbar-toggler-icon {
@@ -72,7 +72,6 @@ const StyledNav = styled.nav`
   }
 `;
 const NotesApp = ({ onLogout, darkMode, userId }) => {
-  // States
   const [notes, setNotes] = useState([]);
   const [inputText, setInputText] = useState("");
   const [inputTitle, setInputTitle] = useState("");
@@ -92,7 +91,6 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Fetch notes only if userId is available
     const storedUserId = JSON.parse(localStorage.getItem("userId"));
     if (storedUserId) {
       fetchNotes(storedUserId);
@@ -106,7 +104,6 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
     });
   };
 
-  // Fetch notes from the backend
   const fetchNotes = async (userId) => {
     try {
       const response = await fetch(
@@ -118,7 +115,7 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
         setNotes(
           data.map((note) => ({
             ...note,
-            time_created: new Date(note.time_created).toISOString(), // Convert timestamp to ISO string
+            time_created: new Date(note.time_created).toISOString(), 
           }))
         );
         // console.log("Updated Notes State:", notes);
@@ -128,29 +125,26 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
     }
   };
 
-  // Handler to update inputText state
   const textHandler = (e) => {
     setInputText(e.target.value);
   };
 
-  // Handler to update inputTitle state
   const titleHandler = (e) => {
     setInputTitle(e.target.value);
   };
 
-  // Handler to update noteColor state
   const changeColor = (newColor) => {
     setNoteColor(newColor);
   };
 
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
-    const month = date.toLocaleString("default", { month: "short" }); // Get short month name
+    const month = date.toLocaleString("default", { month: "short" }); 
     const time = date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit", // Include seconds
-    }); // Get hour, minute, and seconds
+      second: "2-digit",
+    }); 
     return `${date.getDate()} ${month} ${date.getFullYear()} ${time}`;
   };
 
@@ -158,7 +152,6 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
     setNoteTransparency(newTransparency);
   };
 
-  // Handler to save a new note to the backend
   const saveHandler = async (note) => {
     try {
       const response = await fetch(
@@ -179,7 +172,6 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
       if (response.ok) {
         console.log("Note saved successfully!");
         window.location.reload();
-        // Fetch the updated notes from the backend
         fetchNotes(userId);
       } else {
         displayPopupMessage("Failed to save the note!");
@@ -189,7 +181,6 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
     }
   };
 
-  // Handler to delete a note
   const deleteNote = async (note) => {
     try {
       const userId = JSON.parse(localStorage.getItem("userId"));
@@ -216,7 +207,6 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
           if (response.ok) {
             console.log("Note deleted successfully!");
             window.location.reload();
-            // Fetch the updated notes from the backend
             fetchNotes(userId);
           } else {
             displayPopupMessage("Failed to delete the note!");
@@ -235,7 +225,7 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
   const saveNote = async (newTitle, newText, newTimestamp) => {
     try {
       const requestBody = {
-        id: token, // Use the note's time_created as the id
+        id: token, 
         title: newTitle,
         note: newText,
         time_created: newTimestamp,
@@ -254,7 +244,6 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
 
       if (response.ok) {
         console.log("Note updated successfully");
-        // Fetch the updated notes from the backend
         fetchNotes(userId);
       } else {
         console.error("Failed to update the note");
