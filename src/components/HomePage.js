@@ -681,7 +681,7 @@ const HomePage = () => {
                       <br />
                       <strong>Adding Items:</strong>
                       <br />
-                      Allows users to add up to 5 items to each list. Input
+                      Allows users to add up to 10 items to each list. Input
                       fields for item name, quantity, and threshold level.
                       <br />
                       <br />

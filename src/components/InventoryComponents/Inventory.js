@@ -233,8 +233,8 @@ function Inventory({ darkMode }) {
 
     if (existingList) {
       // List with the given title already exists, add the item to that list
-      if (existingList.items.length >= 5) {
-        displayPopupMessage("Cannot add more than 5 items.");
+      if (existingList.items.length >= 10) {
+        displayPopupMessage("Cannot add more than 10 items.");
         return;
       }
       if (item.quantity < 0) {
