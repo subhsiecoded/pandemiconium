@@ -44,7 +44,7 @@ const Number = styled.span`
 `;
 
 const Ministry = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   color: #000;
   text-align: center;
