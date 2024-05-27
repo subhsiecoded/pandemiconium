@@ -337,7 +337,7 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
                 note={note}
                 title={note.title}
                 text={note.note}
-                color={note.color || "rgba(44, 36, 36, 0.25)"} // Provide a default color if it's not available
+                color={note.color || "rgba(44, 36, 36, 0.25)"} 
                 timestamp={formatTimestamp(note.time_created)}
                 deleteNote={deleteNote}
                 saveNote={saveNote}
