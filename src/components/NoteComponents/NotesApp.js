@@ -16,7 +16,7 @@ import { DarkMode } from "@mui/icons-material";
 
 const Container = styled.div`
   color: ${(props) => (props.darkMode ? "white" : "black")};
-  background-image: url(${logoWatermark}); 
+  background-image: url(${logoWatermark});
   background-repeat: repeat;
   min-height: 100vh;
   display: flex;
@@ -30,41 +30,41 @@ const Container = styled.div`
 
   @keyframes animateBackground {
     from {
-      background-position: 0 0; 
+      background-position: 0 0;
     }
     to {
-      background-position: 100% 100%; 
+      background-position: 100% 100%;
     }
   }
 `;
 const StyledNav = styled.nav`
-  background-color: #343a40; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
-  padding: 0.5rem 1rem; 
+  background-color: #343a40;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1rem;
 
   .navbar-brand {
-    color: #fff; 
+    color: #fff;
   }
 
   .nav-link {
-    color: #ccc; 
+    color: #ccc;
     transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 0.5rem 1rem; 
-    border-radius: 0.25rem; 
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
 
     &:hover {
-      background-color: #fff; 
-      color: #343a40; 
+      background-color: #fff;
+      color: #343a40;
     }
 
     &.active {
-      background-color: #007bff; 
+      background-color: #007bff;
       color: #fff;
     }
   }
 
   .navbar-toggler {
-    border-color: #ccc; 
+    border-color: #ccc;
   }
 
   .navbar-toggler-icon {
@@ -110,12 +110,12 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
         `https://pandemiconiummanager.azurewebsites.net/GetNotes/${userId["token"]}`
       );
       const data = await response.json();
-      //console.log("Fetched Data:", data); 
+      //console.log("Fetched Data:", data);
       if (Array.isArray(data) && data.length > 0) {
         setNotes(
           data.map((note) => ({
             ...note,
-            time_created: new Date(note.time_created).toISOString(), 
+            time_created: new Date(note.time_created).toISOString(),
           }))
         );
         // console.log("Updated Notes State:", notes);
@@ -139,12 +139,12 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
 
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
-    const month = date.toLocaleString("default", { month: "short" }); 
+    const month = date.toLocaleString("default", { month: "short" });
     const time = date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
-    }); 
+    });
     return `${date.getDate()} ${month} ${date.getFullYear()} ${time}`;
   };
 
@@ -225,7 +225,7 @@ const NotesApp = ({ onLogout, darkMode, userId }) => {
   const saveNote = async (newTitle, newText, newTimestamp) => {
     try {
       const requestBody = {
-        id: token, 
+        id: token,
         title: newTitle,
         note: newText,
         time_created: newTimestamp,
