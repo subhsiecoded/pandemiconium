@@ -88,7 +88,7 @@ const RemindersContainer = styled.div`
 `;
 
 const ReminderCard = styled.div`
-  width: calc(33.33% - 20px); 
+  max-width: 40%;
   flex-grow: 1;
   margin: 10px;
   padding: 20px;
@@ -97,6 +97,8 @@ const ReminderCard = styled.div`
   background-color: ${(props) => (props.darkMode ? "#444" : "#ffffff")};
   color: ${(props) => (props.darkMode ? "#fff" : "#222")};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Comic-Sans MS", cursive;
+  font-size: 20px; 
   position: relative;
 `;
 

@@ -27,7 +27,7 @@ function ReminderHeader({ darkMode }) {
       }}
     >
       <ReminderHeaderContainer darkMode={darkMode}>
-        <h1 className="notes__title mb-4">Reminders notifications</h1>
+        <h1 className="notes__title mb-4">Reminder notification</h1>
       </ReminderHeaderContainer>
     </div>
   );
