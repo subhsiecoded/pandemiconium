@@ -12,6 +12,7 @@ import Customheaderfont from "./fonts/AGoblinAppears-o2aV.ttf";
 import Custombodyfont from "./fonts/Kreasi-YqEjO.otf";
 import PandemicHelpline from "./headers/PandemicHelpline";
 import SafetyVideoSection from "./SafetyVideoSection";
+import BackToTop from "@mui/icons-material/ArrowUpward";
 
 const Container = styled.div`
   justify-content: center;
@@ -361,7 +362,7 @@ const Pandemicinfo = () => {
       <IndiaSituationReport />
       <VaccineDetails />
       <PandemicHelpline darkMode={darkMode} />
-      <BackToTopButton onClick={scrollToTop}>Back to Top</BackToTopButton>
+      <BackToTopButton onClick={scrollToTop}><BackToTop /></BackToTopButton>
     </Container>
   );
 };
