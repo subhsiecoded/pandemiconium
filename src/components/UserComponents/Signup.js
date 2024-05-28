@@ -1,5 +1,6 @@
 // Signup.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import logoWatermark from "../img/logo.png";
 import logonav from "../img/logonav.png";
@@ -45,7 +46,7 @@ const Signup = ({ onSignup, darkMode }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [userId, setUserId] = useState(null); 
-
+  const navigate=useNavigate();
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
@@ -60,7 +61,7 @@ const Signup = ({ onSignup, darkMode }) => {
         }
       );
 
-      
+      alert("login!");
       if (!response.ok) {
         console.log("Server response:", response);
         const errorData = await response.text(); 
