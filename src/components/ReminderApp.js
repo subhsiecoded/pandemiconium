@@ -12,7 +12,7 @@ import CurrentDateTime from "./CurrentDateTime";
 
 const Container = styled.div`
   color: ${(props) => (props.darkMode ? "white" : "black")};
-  background-image: url(${logoWatermark}); 
+  background-image: url(${logoWatermark});
   background-repeat: repeat;
   min-height: 100vh;
   display: flex;
@@ -22,14 +22,14 @@ const Container = styled.div`
   padding-top: 50px;
   background-position: center;
   background-attachment: fixed;
-  animation: animateBackground 10s linear infinite; 
+  animation: animateBackground 10s linear infinite;
 
   @keyframes animateBackground {
     from {
       background-position: 0 0;
     }
     to {
-      background-position: 100% 100%; 
+      background-position: 100% 100%;
     }
   }
 `;
@@ -43,22 +43,21 @@ const FormContainer = styled.div`
   background-color: ${(props) => (props.darkMode ? "#333" : "#ffffff")};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   color: ${(props) => (props.darkMode ? "#fff" : "#222")};
-  
 `;
 const StyledNav = styled.nav`
-  background-color: #343a40; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
-  padding: 0.5rem 1rem; 
+  background-color: #343a40;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1rem;
 
   .navbar-brand {
-    color: #fff; 
+    color: #fff;
   }
 
   .nav-link {
-    color: #ccc; 
+    color: #ccc;
     transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 0.5rem 1rem; 
-    border-radius: 0.25rem; 
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
 
     &:hover {
       background-color: #fff;
@@ -66,13 +65,13 @@ const StyledNav = styled.nav`
     }
 
     &.active {
-      background-color: #007bff; 
-      color: #fff; 
+      background-color: #007bff;
+      color: #fff;
     }
   }
 
   .navbar-toggler {
-    border-color: #ccc; 
+    border-color: #ccc;
   }
 
   .navbar-toggler-icon {
@@ -98,7 +97,7 @@ const ReminderCard = styled.div`
   color: ${(props) => (props.darkMode ? "#fff" : "#222")};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   font-family: "Comic-Sans MS", cursive;
-  font-size: 20px; 
+  font-size: 20px;
   position: relative;
 `;
 
@@ -117,52 +116,105 @@ const StyledInput = styled.input`
   padding: 5px;
 `;
 
-function ReminderApp({ onLogout, darkMode }) {
+function ReminderApp({ onLogout, darkMode, userId }) {
   const [reminders, setReminders] = useState([]);
   const [reminderName, setReminderName] = useState("");
   const [startTime, setStartTime] = useState("08:00");
   const [endTime, setEndTime] = useState("09:00");
-  const [date, setDate] = useState("");
-
-  const handleReminderSubmit = () => {
-    if (!reminderName) {
-      toast.error("Name of the reminder is NECESSARY");
-      return;
-    }
-
-    const startTimeHours = parseInt(startTime.split(":")[0], 10);
-    const endTimeHours = parseInt(endTime.split(":")[0], 10);
-
-    if (startTimeHours >= endTimeHours) {
-      toast.error("Start time must be less than end time");
-      return;
-    }
-
-    if (!date) {
-      toast.error("Please select a date");
-      return;
-    }
-
-    const newReminder = {
-      name: reminderName,
-      startTime,
-      endTime,
-      date,
-    };
-    setReminders([...reminders, newReminder]);
-    toast.success("Reminder saved!");
-
-    setReminderName("");
-    setStartTime("08:00");
-    setEndTime("09:00");
-    setDate("");
+  const parsedUserId = userId ? JSON.parse(userId).userId : null; 
+  const token = parsedUserId ? parsedUserId.token : null;
+  const tokenuser = userId; 
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(":");
+    const formattedHours = hours % 12 || 12;
+    const period = hours >= 12 ? "PM" : "AM";
+    return `${formattedHours}:${minutes} ${period}`;
   };
 
-  const handleDeleteReminder = (index) => {
-    const updatedReminders = [...reminders];
-    updatedReminders.splice(index, 1);
-    setReminders(updatedReminders);
-    toast.info("Reminder deleted!");
+  useEffect(() => {
+    const fetchReminder = async (token) => {
+      try {
+        const response = await fetch(
+          `https://pandemiconiummanager.azurewebsites.net/GetNotification/${token}`
+        );
+        const reminder = await response.json();
+        console.log("Reminder response:", reminder); 
+        if (reminder) {
+          setReminders([reminder]);
+        } else {
+          setReminders([]);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (token) {
+      fetchReminder(token);
+    }
+  }, [userId, token]);
+
+  const handleReminderSubmit = async () => {
+    const currentDate = new Date().toISOString().split("T")[0];
+    const startTimeIso = `${currentDate}T${startTime}:00.000Z`;
+    const endTimeIso = `${currentDate}T${endTime}:00.000Z`;
+
+    try {
+      const parsedUserId = JSON.parse(userId);
+      const token = parsedUserId.token;
+
+      const newReminder = {
+        id: token, 
+        title: reminderName,
+        start_time: startTimeIso,
+        end_time: endTimeIso,
+      };
+
+      const response = await fetch(
+        "https://pandemiconiummanager.azurewebsites.net/RegisterNotification",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newReminder),
+        }
+      );
+      if (response.ok) {
+        toast.success("Reminder saved!");
+        setReminderName("");
+        setStartTime("08:00");
+        setEndTime("09:00");
+      } else {
+        toast.error("Error saving reminder");
+      }
+    } catch (error) {
+      toast.error("Error saving reminder");
+      console.error(error);
+    }
+  };
+
+  const handleDeleteReminder = async (reminderId) => {
+    try {
+      const response = await fetch(
+        `https://pandemiconiummanager.azurewebsites.net/DeleteNotification/${reminderId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        toast.success("Reminder deleted!");
+        setReminders(
+          reminders.filter((reminder) => reminder.id !== reminderId)
+        );
+      } else {
+        toast.error("Error deleting reminder");
+      }
+    } catch (error) {
+      toast.error("Error deleting reminder");
+      console.error(error);
+    }
   };
 
   return (
@@ -260,43 +312,34 @@ function ReminderApp({ onLogout, darkMode }) {
               defaultValue="09:00"
             />
           </InputContainer>
-          <InputContainer>
-            <label htmlFor="date">Date</label>
-            <StyledInput
-              type="date"
-              id="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-          </InputContainer>
           <button onClick={handleReminderSubmit} className="btn btn-primary">
             Set Reminder
           </button>
         </FormContainer>
 
         <RemindersContainer>
-          {reminders.map((reminder, index) => (
-            <ReminderCard key={index} darkMode={darkMode}>
-              <DeleteButton
-                className="btn btn-danger"
-                onClick={() => handleDeleteReminder(index)}
-              >
-                Delete
-              </DeleteButton>
-              <p>Name: {reminder.name}</p>
-              <p>Start Time: {reminder.startTime}</p>
-              <p>End Time: {reminder.endTime}</p>
-              <p>Date: {reminder.date}</p>
-            </ReminderCard>
-          ))}
-        </RemindersContainer>
+        {reminders.map((reminder, index) => (
+          <ReminderCard key={index} darkMode={darkMode}>
+            {/* Display reminder details */}
+            <DeleteButton
+              className="btn btn-danger"
+              onClick={() => handleDeleteReminder(index)}
+            >
+              Delete
+            </DeleteButton>
+            <p>Name: {reminder.title}</p>
+            <p>Start Time: {formatTime(reminder.start_time)}</p>
+            <p>End Time: {formatTime(reminder.end_time)}</p>
+          </ReminderCard>
+        ))}
+      </RemindersContainer>
       </Container>
       <button
         onClick={onLogout}
         className="btn btn-danger"
         style={{
           position: "fixed",
-          top: "90px", 
+          top: "90px",
           right: "20px",
         }}
       >

@@ -62,15 +62,15 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  color: ${(props) => (props.darkMode ? "#fff" : "#222")}; 
+  color: ${(props) => (props.darkMode ? "#fff" : "#222")};
   background-image: url(${logoWatermark});
-  background-repeat: repeat; 
+  background-repeat: repeat;
 `;
 
 const LogoNoUser = styled.div`
-  color: ${(props) => (props.darkMode ? "#fff" : "#222")}; 
+  color: ${(props) => (props.darkMode ? "#fff" : "#222")};
   background-image: url(${logoWatermark});
-  background-repeat: repeat; 
+  background-repeat: repeat;
   height: 100vh;
 `;
 
@@ -84,11 +84,11 @@ const FormContainer = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   color: ${(props) => (props.darkMode ? "#fff" : "#222")};
   /* Text color */
-  margin: auto; 
+  margin: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
 `;
 
 const LandingPage = ({ darkMode }) => {
@@ -162,7 +162,7 @@ const App = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
     alert("You have been logged out");
-    window.location.reload(); 
+    window.location.reload();
   };
 
   const toggleDarkMode = () => {
@@ -250,7 +250,11 @@ const App = () => {
           path="/remind"
           element={
             <HomePageWrapper isLoggedIn={isLoggedIn}>
-              <ReminderApp onLogout={handleLogout} darkMode={darkMode} />{" "}
+              <ReminderApp
+                onLogout={handleLogout}
+                darkMode={darkMode}
+                userId={localStorage.getItem("userId")}
+              />
             </HomePageWrapper>
           }
         />
@@ -273,7 +277,7 @@ const App = () => {
           className="btn btn-danger"
           style={{
             position: "fixed",
-            top: "90px", 
+            top: "90px",
             right: "20px",
           }}
         >
@@ -285,9 +289,9 @@ const App = () => {
         className="btn btn-info darkmodebutton"
         style={{
           position: "fixed",
-          top: "20px", 
+          top: "20px",
           right: "20px",
-          zIndex: 9999, 
+          zIndex: 9999,
         }}
       >
         <img
